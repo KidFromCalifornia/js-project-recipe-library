@@ -1,0 +1,180 @@
+:root {
+  /* Primary Colors */
+  --primary: #0018A4;
+  --secondary: #FF6589;
+
+  /*filter colors*/
+  --select-dark: #CCFFE2;
+  --select-light: #FFECEA;
+
+
+  /* Backgrounds */
+  --background-light: #FAFBFF;
+  --background-dark: #2c3e50;
+
+  /* Text Colors */
+  --text-light: #ffffff;
+  --text-dark: #000000;
+
+  /* Border Colors */
+  --border-light: #E9E9E9;
+  --border-dark: #0018A4;
+
+
+  /* Shadows */
+  --shadow-light: #899CCC;
+  --shadow-dark: rgba(0, 0, 0, 0.3);
+
+}
+
+
+body {
+  background-color: var(--background-light);
+  color: var(--text-dark);
+  font-family: "futura", sans-serif;
+  margin: 1em;
+}
+
+h1 {
+  font: bold 64px "futura", sans-serif;
+  color: var(--primary);
+  text-align: center;
+}
+
+h4 {
+  font: bold 24px "futura", sans-serif;
+  color: var(--text-dark);
+}
+
+
+li {
+  font-size: small;
+
+}
+
+.filtersort-mobile {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  align-items: center;
+}
+
+optgroup {
+  bac
+}
+
+.filtersort-larger {
+  display: none;
+}
+
+span {
+  width: 240px;
+  height: 2px;
+  background-color: #E9E9E9;
+  justify-self: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  align-items: start;
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  width: 320px;
+  padding: 16px 16px 24px 16px;
+  row-gap: 16px;
+}
+
+.card:hover {
+  border: 2px solid var(--border-dark);
+  box-shadow: 0px 0px 30px rgba(0, 24, 164, 0.2);
+  border-radius: 16px;
+
+}
+
+img {
+  height: clamp(200px, 50%, 400px);
+  align-self: stretch;
+  object-fit: cover;
+}
+
+section {
+  display: flex;
+  flex-direction: row;
+  width: clamp(320px, 100vw, 1312px);
+  justify-content: space-between;
+  row-gap: 32px;
+  flex-wrap: wrap;
+}
+
+section {
+  margin: 1em;
+}
+
+@media all and (min-width: 780px) and (max-width: 1280px) {
+
+  h1 {
+    text-align: left;
+  }
+
+  button:hover {
+    border: 1px solid var(--border-dark);
+  }
+
+  .green button:active {
+    color: var(--text-light);
+    background-color: var(--primary);
+    border: 1px solid var(--primary);
+  }
+
+  .pink button:active {
+    color: var(--select-light);
+    background-color: var(--secondary);
+    border: 1px solid var(--secondary);
+  }
+
+  .selectors {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+  }
+
+  button {
+    border-radius: 50px;
+    border: 1px solid var(--background-light);
+    margin: 5px;
+    padding: 4px 8px;
+
+  }
+
+  .filter .selectors>button {
+    background-color: var(--select-dark);
+    color: var(--primary);
+  }
+
+  .sort .selectors>button {
+    background-color: var(--select-light);
+    color: var(--primary);
+  }
+
+  .sort {
+    justify-content: start;
+    margin-left: 2em;
+  }
+
+  .filter {
+    justify-content: start;
+    margin-right: 2em;
+
+  }
+
+
+
+  #filterSort {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+  }
+
+}

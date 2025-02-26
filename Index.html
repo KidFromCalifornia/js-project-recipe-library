@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+  <title> Recipe page</title>
+  <link rel="stylesheet"
+        href="style.css">
+
+</head>
+
+<body>
+  <header>
+    <h1>Recipe Library</h1>
+  </header>
+  <main>
+    <article class="filtersort-larger"
+             id="filterSort">
+      <div class="flex filter green">
+        <h4> Filter on click</h4>
+        <div class="selectors">
+          <form class="selectors green">
+            <button id="all"
+                    class="button-filter">
+              All
+            </button>
+            <button id="italy"
+                    class="button-filter  ">
+              Italy
+            </button>
+            <button id="china"
+                    class="button-filter  ">
+              China
+            </button>
+            <button id="usa"
+                    class="button-filter  ">
+              USA
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="flex sort">
+        <h4>Sort on time </h4>
+        <form class="selectors pink">
+          <button id="descending"
+                  class="button-sort">
+            Descending
+          </button>
+          <button id="ascending"
+                  class="button-sort ">
+            Ascending
+          </button>
+        </form>
+      </div>
+    </article>
+    <article class="filtersort-mobile"
+             id="filterSort">
+      <label>
+        <h4> Filter on click</h4>
+        <select class="selectors">
+          <optgroup label="cuisine">
+            <option>option 1</option>
+            <option>option 2</option>
+            <option>option 3</option>
+          </optgroup>
+        </select>
+      </label>
+
+      <label>
+        <h4>Sort on time </h4> <br>
+        <select class="selectors">
+          <optgroup label="Sort">
+            <option>Ascending</option>
+            <option>Descending</option>
+
+          </optgroup>
+        </select>
+      </label>
+
+
+    </article>
+    <div class="response">
+
+
+    </div>
+
+    <section class="recipe-container">
+      <div class="card">
+        <img src="./images/Focaccia.png"
+             alt="XxX">
+        <h5>XxXxX</h5>
+        <span></span>
+        <div id="cusineTime">
+          <b>Cuisine:</b> XxX<br>
+          <b>Time:</b> XX minutes
+        </div>
+        <span></span>
+        <h5>Ingredients</h5>
+        <ul id="instructions">
+          <li>line 1</li>
+          <li>line 2</li>
+          <li>line 3</li>
+          <li>line 4</li>
+        </ul>
+      </div>
+      <div id
+           class="card">
+        <img src="images/Chicken.png"
+             alt="XxX">
+        <h5>XxXxX</h5>
+        <span></span>
+        <div id="cusineTime">
+          <b>Cuisine:</b> XxX<br>
+          <b>Time:</b> XX minutes
+        </div>
+        <span></span>
+        <h5>Ingredients</h5>
+        <ul>
+          <li>line 1 </li>
+          <li>line 2</li>
+          <li>line 3</li>
+          <li>line 4</li>
+        </ul>
+      </div>
+
+    </section>
+  </main>
+  <footer>
+
+  </footer>
+  <script src="script.js"></script>
+</body>
+
+</html>
