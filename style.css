@@ -198,13 +198,13 @@ section {
     border: 1px solid var(--border-dark);
   }
 
-  .green button:focus {
+  .filter .selectors>button:focus {
     color: var(--text-light);
     background-color: var(--primary);
     border: 1px solid var(--primary);
   }
 
-  .pink button:focus {
+  .sort .selectors>button:focus {
     color: var(--select-light);
     background-color: var(--secondary);
     border: 1px solid var(--secondary);
