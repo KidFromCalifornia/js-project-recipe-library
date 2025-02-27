@@ -16,8 +16,8 @@
     <h1>Recipe Library</h1>
   </header>
   <main>
-    <article class="filtersort-larger"
-             id="filterSort">
+    <div class="filtersort-larger"
+         id="filterSort">
       <div class="flex filter green">
         <h4> Filter on click</h4>
         <div class="selectors">
@@ -55,37 +55,45 @@
           </button>
         </form>
       </div>
-    </article>
+    </div>
     <article class="filtersort-mobile"
              id="filterSort">
-      <label>
-        <h4> Filter on click</h4>
-        <select class="selectors">
-          <optgroup label="cuisine">
-            <option>option 1</option>
-            <option>option 2</option>
-            <option>option 3</option>
-          </optgroup>
-        </select>
-      </label>
+      <!--- example --
+        <div class="dropdown">
+          <button class="dropbtn">Dropdown</button>
+          <div class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+          </div>
+        </div>
+      -->
 
-      <label>
-        <h4>Sort on time </h4> <br>
-        <select class="selectors">
-          <optgroup label="Sort">
-            <option>Ascending</option>
-            <option>Descending</option>
+      <div class="dropdown filter">
+        <button onclick="myFunction()"
+                class="dropbtn">Filter</button>
+        <div id="myDropdown"
+             class=" selectors filter-content">
+          <option value="all">All Cuisines</option>
+          <option value="japanese">Japanese</option>
+          <option value="korean">Korean</option>
+          <option value="usa">North American</option>
+        </div>
+      </div>
 
-          </optgroup>
-        </select>
-      </label>
+      <div class="dropdown sort">
+        <button onclick="myFunction()"
+                class="dropbtn"> Sort </button>
+        <div id="myDropdown"
+             class="selectors sort-content">
+          <option value="aZ">Ascending (a-z)</option>
+          <option value="zA">Descending (z-a) </option>
+        </div>
+        </label>
 
-
+      </div>
     </article>
-    <div class="response">
-
-
-    </div>
+    <div class="response"></div>
 
     <section class="recipe-container">
       <div class="card">

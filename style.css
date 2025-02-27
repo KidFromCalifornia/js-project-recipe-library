@@ -13,7 +13,7 @@
   --background-dark: #2c3e50;
 
   /* Text Colors */
-  --text-light: #ffffff;
+  --text-light: #FFECEA;
   --text-dark: #000000;
 
   /* Border Colors */
@@ -22,7 +22,7 @@
 
 
   /* Shadows */
-  --shadow-light: #899CCC;
+  --shadow-light: rgba(137, 156, 204, 0.3);
   --shadow-dark: rgba(0, 0, 0, 0.3);
 
 }
@@ -32,7 +32,7 @@ body {
   background-color: var(--background-light);
   color: var(--text-dark);
   font-family: "futura", sans-serif;
-  margin: 1em;
+
 }
 
 h1 {
@@ -47,50 +47,124 @@ h4 {
 }
 
 
-li {
-  font-size: small;
-
-}
-
-.filtersort-mobile {
-  display: flex;
-  flex-direction: row;
-  gap: 32px;
-  align-items: center;
-}
-
-optgroup {
-  bac
+#filterSort {
+  margin-bottom: 32px;
+  column-gap: 32px;
 }
 
 .filtersort-larger {
   display: none;
 }
 
-span {
-  width: 240px;
-  height: 2px;
-  background-color: #E9E9E9;
-  justify-self: center;
+.filtersort-mobile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+
+
+.filter-content {
+  display: none;
+  position: absolute;
+  background-color: var(--primary);
+  z-index: 2;
+  width: 100vw;
+  font: 16px var(--text-light) "futura", sans-serif;
+  text-align: left;
+
+
+}
+
+.sort-content {
+  display: none;
+  position: absolute;
+  background-color: var(--background-light);
+  z-index: 2;
+  width: 100vw;
+  font: 16px "futura", sans-serif var(--background-light);
+  text-align: left;
+
+}
+
+
+option {
+  color: var(--select-light);
+  margin: 5px;
+  padding: 4px 8px;
+
+}
+
+/* filter buttons*/
+
+.dropbtn {
+  font: 16px "futura", sans-serif var(--primary);
+  width: 100svw;
+  border: none;
+  padding: 4px 8px;
+  height: 8svh;
+  z-index: 2;
+}
+
+
+
+.filter button:focus {
+  color: var(--text-light);
+  background-color: var(--primary);
+  border: 2px solid var(--primary);
+  z-index: 2;
+}
+
+.sort button:focus {
+  color: var(--select-light);
+  background-color: var(--secondary);
+  border: 2px solid var(--secondary);
+  z-index: 2;
+}
+
+.filter>button {
+  background-color: var(--select-dark);
+  color: var(--primary);
+
+}
+
+.sort>button {
+  background-color: var(--select-light);
+  color: var(--primary);
+}
+
+/* recipe cards*/
+
+
 
 .card {
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
   align-items: start;
-  border: 1px solid var(--border-light);
+  border: 2px solid var(--border-dark);
+  box-shadow: 0px 0px 30px var(--shadow-light);
   border-radius: 16px;
   width: 320px;
   padding: 16px 16px 24px 16px;
-  row-gap: 16px;
+  z-index: 1;
+  justify-content: space-evenly;
+  box-sizing: border-box;
+  align-self: center;
+
 }
 
-.card:hover {
-  border: 2px solid var(--border-dark);
-  box-shadow: 0px 0px 30px rgba(0, 24, 164, 0.2);
-  border-radius: 16px;
+li {
+  font-size: small;
 
+}
+
+span {
+  margin: 16px 0;
+  width: 240px;
+  height: 2px;
+  background-color: #E9E9E9;
+  justify-self: center;
 }
 
 img {
@@ -102,17 +176,19 @@ img {
 section {
   display: flex;
   flex-direction: row;
-  width: clamp(320px, 100vw, 1312px);
-  justify-content: space-between;
-  row-gap: 32px;
+  width: 100%;
+  align-items: center;
+  gap: 16px;
   flex-wrap: wrap;
+  box-sizing: border-box;
+  justify-content: center;
 }
 
-section {
-  margin: 1em;
-}
+@media (min-width: 820px) {
 
-@media all and (min-width: 780px) and (max-width: 1280px) {
+  .filtersort-mobile {
+    display: none;
+  }
 
   h1 {
     text-align: left;
@@ -122,13 +198,13 @@ section {
     border: 1px solid var(--border-dark);
   }
 
-  .green button:active {
+  .green button:focus {
     color: var(--text-light);
     background-color: var(--primary);
     border: 1px solid var(--primary);
   }
 
-  .pink button:active {
+  .pink button:focus {
     color: var(--select-light);
     background-color: var(--secondary);
     border: 1px solid var(--secondary);
@@ -160,21 +236,27 @@ section {
 
   .sort {
     justify-content: start;
-    margin-left: 2em;
+
   }
 
   .filter {
     justify-content: start;
-    margin-right: 2em;
 
   }
 
-
-
-  #filterSort {
+  .filtersort-larger {
     display: flex;
     flex-direction: row;
     justify-content: start;
   }
 
+  .card {
+    border: 2px solid var(--background-light);
+  }
+
+  .card:hover {
+    border: 2px solid var(--border-dark);
+    box-shadow: 0px 0px 30px var(--shadow-light);
+    border-radius: 16px;
+  }
 }
