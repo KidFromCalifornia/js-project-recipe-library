@@ -32,6 +32,7 @@ body {
   background-color: var(--background-light);
   color: var(--text-dark);
   font-family: "futura", sans-serif;
+  row-gap: 32px;
 
 }
 
@@ -46,11 +47,23 @@ h4 {
   color: var(--text-dark);
 }
 
+ul {
+  color: var(--select-light);
+  padding: 4px 8px;
+  margin: 0;
+  text-align: center;
+
+}
+
+li {
+  padding: 0 0 5px;
+}
 
 #filterSort {
   margin-bottom: 32px;
   column-gap: 32px;
 }
+
 
 .filtersort-larger {
   display: none;
@@ -62,38 +75,42 @@ h4 {
   align-items: center;
 }
 
+.response {
+  position: relative;
+  text-align: center;
+  margin-bottom: 32px;
+}
 
+.filter-content,
+.sort-content {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  width: 100vw;
+  min-width: 150px;
+  font: 16px var(--text-light) "futura", sans-serif;
+  text-align: center;
+  top: 100%;
+  box-sizing: border-box;
+}
 
 .filter-content {
   display: none;
-  position: absolute;
   background-color: var(--primary);
-  z-index: 2;
-  width: 100vw;
-  font: 16px var(--text-light) "futura", sans-serif;
-  text-align: left;
-
-
 }
 
 .sort-content {
   display: none;
-  position: absolute;
-  background-color: var(--background-light);
-  z-index: 2;
-  width: 100vw;
-  font: 16px "futura", sans-serif var(--background-light);
-  text-align: left;
+  background-color: var(--secondary);
+}
+
+.show {
+  display: block;
 
 }
 
 
-option {
-  color: var(--select-light);
-  margin: 5px;
-  padding: 4px 8px;
 
-}
 
 /* filter buttons*/
 
@@ -106,16 +123,19 @@ option {
   z-index: 2;
 }
 
+.filter,
+.sort {
+  position: relative;
+}
 
-
-.filter button:focus {
+.filter button.active {
   color: var(--text-light);
   background-color: var(--primary);
   border: 2px solid var(--primary);
   z-index: 2;
 }
 
-.sort button:focus {
+.sort button.active {
   color: var(--select-light);
   background-color: var(--secondary);
   border: 2px solid var(--secondary);

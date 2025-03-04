@@ -15,6 +15,7 @@
   <header>
     <h1>Recipe Library</h1>
   </header>
+  <div class="response"></div>
   <main>
     <div class="filtersort-larger"
          id="filterSort">
@@ -22,7 +23,7 @@
         <h4> Filter on click</h4>
         <div class="selectors green">
           <form class="selectors green">
-            <button id="all"
+            <button typeid="all"
                     class="button-filter">
               All
             </button>
@@ -31,11 +32,11 @@
               Japanese
             </button>
             <button id="korean"
-                    class="button-filter  ">
+                    class="button-filter ">
               Korean
             </button>
             <button id="usa"
-                    class="button-filter  ">
+                    class="button-filter">
               North American
             </button>
           </form>
@@ -58,48 +59,44 @@
     </div>
     <article class="filtersort-mobile"
              id="filterSort">
-      <!--- example --
-        <div class="dropdown">
-          <button class="dropbtn">Dropdown</button>
-          <div class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
-          </div>
-        </div>
-      -->
+
 
       <div class="dropdown filter">
-        <button onclick="myFunction()"
-                class="dropbtn">Filter</button>
-        <div id="myDropdown"
-             class=" selectors filter-content">
-          <option value="all">All Cuisines</option>
-          <option value="japanese">Japanese</option>
-          <option value="korean">Korean</option>
-          <option value="usa">North American</option>
-        </div>
+        <button class="dropbtn">Filter</button>
+        <ul id="myDropdown"
+            class=" selectors filter-content">
+          <li type="checkbox"
+              value="all">All Cuisines</li>
+          <li type="checkbox"
+              value="japanese">Japanese</li>
+          <li type="checkbox"
+              value="korean">Korean</li>
+          <li type="checkbox"
+              value="usa">North American</li>
+          <li type="checkbox"
+              value="italian">Italian</li>
+        </ul>
       </div>
 
       <div class="dropdown sort">
-        <button onclick="myFunction()"
-                class="dropbtn"> Sort </button>
-        <div id="myDropdown"
-             class="selectors sort-content">
-          <option value="aZ">Ascending (a-z)</option>
-          <option value="zA">Descending (z-a) </option>
-        </div>
-        </label>
+        <button class="dropbtn"> Sort </button>
+        <ul id="myDropdown"
+            class="selectors sort-content">
+          <li type="button-sort"
+              value="aZ">Ascending (a-z)</li>
+          <li type=" button-sort"
+              value="zA">Descending (z-a) </li>
+        </ul>
 
       </div>
     </article>
-    <div class="response"></div>
+
 
     <section class="recipe-container">
       <div class="card">
         <img src="./images/Focaccia.png"
-             alt="XxX">
-        <h5>XxXxX</h5>
+             alt="Frocaccia">
+        <h5>Frocaccia</h5>
         <span></span>
         <div id="cusineTime">
           <b>Cuisine:</b> XxX<br>
@@ -117,11 +114,12 @@
       <div id
            class="card">
         <img src="images/Chicken.png"
-             alt="XxX">
-        <h5>XxXxX</h5>
+             alt="Chicken">
+        <h5>Chicken</h5>
         <span></span>
-        <div id="cusineTime">
-          <b>Cuisine:</b> XxX<br>
+        <div value=" Asian"
+             id="cusineTime">
+          <b>Cuisine:</b> Asian<br>
           <b>Time:</b> XX minutes
         </div>
         <span></span>
