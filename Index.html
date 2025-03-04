@@ -23,7 +23,8 @@
         <h4> Filter on click</h4>
         <div class="selectors green">
           <form class="selectors green">
-            <button typeid="all"
+            <button type=""
+                    id="all"
                     class="button-filter">
               All
             </button>
@@ -59,83 +60,56 @@
     </div>
     <article class="filtersort-mobile"
              id="filterSort">
-
-
       <div class="dropdown filter">
         <button class="dropbtn">Filter</button>
         <ul id="myDropdown"
             class=" selectors filter-content">
-          <li type="checkbox"
-              value="all">All Cuisines</li>
-          <li type="checkbox"
-              value="japanese">Japanese</li>
-          <li type="checkbox"
-              value="korean">Korean</li>
-          <li type="checkbox"
-              value="usa">North American</li>
-          <li type="checkbox"
-              value="italian">Italian</li>
+          <li>
+            <option type="checkbox"
+                    value="all">All Cuisines</option>
+          </li>
+          <li>
+            <option type="checkbox"
+                    value="japanese">Japanese</option>
+          </li>
+          <li>
+            <option type="checkbox"
+                    value="korean">Korean</option>
+          </li>
+          <li>
+            <option type="checkbox"
+                    value="usa">North American</option>
+          </li>
+          <li>
+            <option type="checkbox"
+                    value="italian">Italian</option>
+          </li>
         </ul>
       </div>
-
       <div class="dropdown sort">
         <button class="dropbtn"> Sort </button>
         <ul id="myDropdown"
             class="selectors sort-content">
-          <li type="button-sort"
-              value="aZ">Ascending (a-z)</li>
-          <li type=" button-sort"
-              value="zA">Descending (z-a) </li>
+          <li>
+            <option type="button"
+                    value="ascend"> Ascending </option>
+          </li>
+          <li>
+            <option type=" button"
+                    value="decend"> Descending</option>
+          </li>
         </ul>
-
       </div>
     </article>
 
-
     <section class="recipe-container">
-      <div class="card">
-        <img src="./images/Focaccia.png"
-             alt="Frocaccia">
-        <h5>Frocaccia</h5>
-        <span></span>
-        <div id="cusineTime">
-          <b>Cuisine:</b> XxX<br>
-          <b>Time:</b> XX minutes
-        </div>
-        <span></span>
-        <h5>Ingredients</h5>
-        <ul id="instructions">
-          <li>line 1</li>
-          <li>line 2</li>
-          <li>line 3</li>
-          <li>line 4</li>
-        </ul>
-      </div>
-      <div id
-           class="card">
-        <img src="images/Chicken.png"
-             alt="Chicken">
-        <h5>Chicken</h5>
-        <span></span>
-        <div value=" Asian"
-             id="cusineTime">
-          <b>Cuisine:</b> Asian<br>
-          <b>Time:</b> XX minutes
-        </div>
-        <span></span>
-        <h5>Ingredients</h5>
-        <ul>
-          <li>line 1 </li>
-          <li>line 2</li>
-          <li>line 3</li>
-          <li>line 4</li>
-        </ul>
-      </div>
+      <div Id="recipe-card"
+           class="recipe-container">
 
+      </div>
     </section>
   </main>
   <footer>
-
   </footer>
   <script src="script.js"></script>
 </body>

@@ -106,7 +106,6 @@ li {
 
 .show {
   display: block;
-
 }
 
 
@@ -157,7 +156,7 @@ li {
 
 
 
-.card {
+.recipe-card {
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
