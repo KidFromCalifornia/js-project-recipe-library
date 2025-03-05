@@ -52,6 +52,7 @@ const recipes = [
     id: 3,
     title: "Gluten-Free Chicken Stir-Fry",
     image: `https://picsum.photos/seed/chicken/300/200`,
+    readyInMinutes: 25,
     servings: 3,
     sourceUrl: "https://example.com/gluten-free-chicken-stir-fry",
     diets: ["gluten-free"],
@@ -348,6 +349,9 @@ recipes.forEach(recipe => {
   const recipeCard = document.createElement('div');
   recipeCard.classList.add('recipe-card');
 
+
+  const ingredientList = recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join("");
+
   recipeCard.innerHTML = `
     <img src="${recipe.image}" alt="${recipe.title}">
     <h3>${recipe.title}</h3>
@@ -356,10 +360,10 @@ recipes.forEach(recipe => {
     <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
     <span></span>
     <p><strong>Servings:</strong> ${recipe.servings}</p>
-    <p><strong>Price per Serving:</strong> $${recipe.pricePerServing}</p>
-    <ul><strong>Ingredients:</strong> ${recipe.ingredients}</ul>
-    <p><strong>Popularity:</strong> ${recipe.popularity}%</p>
-    <a href="${recipe.sourceUrl}" target="_blank">Get Recipe</a>
+  <span></span>
+    <p><strong>Ingredients:</strong></p>
+    <ul class="ingredients-list">${ingredientList}</ul>
+
   `;
 
   recipeContainer.appendChild(recipeCard);
