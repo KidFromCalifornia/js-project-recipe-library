@@ -5,7 +5,7 @@ const recipes = [
   {
     id: 1,
     title: "Vegan Lentil Soup",
-    image: "./images/Chicken.png",
+    image: `https://picsum.photos/seed/lentils/300/200`,
     readyInMinutes: 30,
     servings: 4,
     sourceUrl: "https://example.com/vegan-lentil-soup",
@@ -29,10 +29,10 @@ const recipes = [
   {
     id: 2,
     title: "Vegetarian Pesto Pasta",
-    image: "./images/Chicken.png",
+    image: `https://picsum.photos/seed/pasta/300/200`,
     readyInMinutes: 25,
     servings: 2,
-    sourceUrl: "https://example.com/vegetarian-pesto-pasta",
+    sourceUrl: "",
     diets: ["vegetarian"],
     cuisine: "Italian",
     ingredients: [
@@ -51,8 +51,7 @@ const recipes = [
   {
     id: 3,
     title: "Gluten-Free Chicken Stir-Fry",
-    image: "./chicken.webp",
-    readyInMinutes: 20,
+    image: `https://picsum.photos/seed/chicken/300/200`,
     servings: 3,
     sourceUrl: "https://example.com/gluten-free-chicken-stir-fry",
     diets: ["gluten-free"],
@@ -77,7 +76,7 @@ const recipes = [
   {
     id: 4,
     title: "Dairy-Free Tacos",
-    image: "./chicken.webp",
+    image: `https://picsum.photos/seed/tacos/300/200`,
     readyInMinutes: 15,
     servings: 2,
     sourceUrl: "https://example.com/dairy-free-tacos",
@@ -97,7 +96,7 @@ const recipes = [
   {
     id: 5,
     title: "Middle Eastern Hummus",
-    image: "./chicken.webp",
+    image: `https://picsum.photos/seed/hummus/300/200`,
     readyInMinutes: 10,
     servings: 4,
     sourceUrl: "https://example.com/middle-eastern-hummus",
@@ -116,10 +115,10 @@ const recipes = [
   {
     id: 6,
     title: "Quick Avocado Toast",
-    image: "./chicken.webp",
+    image: "https://picsum.photos/300/200?random",
     readyInMinutes: 5,
     servings: 1,
-    sourceUrl: "https://example.com/quick-avocado-toast",
+    sourceUrl: "https://picsum.photos/200/300",
     diets: ["vegan"],
     cuisine: "Mediterranean",
     ingredients: [
@@ -134,7 +133,7 @@ const recipes = [
   {
     id: 7,
     title: "Beef Stew",
-    image: "./chicken.webp",
+    image: `https://picsum.photos/seed/beef/300/200`,
     readyInMinutes: 90,
     servings: 5,
     sourceUrl: "https://example.com/beef-stew",
@@ -164,7 +163,7 @@ const recipes = [
   {
     id: 8,
     title: "Sweet Potato Buddha Bowl",
-    image: "./sweet-potato-bowl.webp",
+    image: `https://picsum.photos/seed/sweet-potato/300/200`,
     readyInMinutes: 35,
     servings: 4,
     sourceUrl: "https://example.com/sweet-potato-buddha-bowl",
@@ -189,7 +188,7 @@ const recipes = [
   {
     id: 9,
     title: "Mushroom Risotto",
-    image: "./mushroom-risotto.webp",
+    image: `https://picsum.photos/seed/mushroom/300/200`,
     readyInMinutes: 40,
     servings: 3,
     sourceUrl: "https://example.com/mushroom-risotto",
@@ -214,7 +213,7 @@ const recipes = [
   {
     id: 10,
     title: "Spicy Tofu Stir-Fry",
-    image: "./spicy-tofu-stirfry.webp",
+    image: `https://picsum.photos/seed/stir-fry/300/200`,
     readyInMinutes: 25,
     servings: 4,
     sourceUrl: "https://example.com/spicy-tofu-stirfry",
@@ -240,10 +239,10 @@ const recipes = [
   {
     id: 11,
     title: "Zucchini Noodles with Pesto",
-    image: "./zucchini-pesto.webp",
+    image: `https://picsum.photos/seed/n/300/200`,
     readyInMinutes: 20,
     servings: 2,
-    sourceUrl: "https://example.com/zucchini-noodles-pesto",
+    sourceUrl: "https://picsum.photos/300/200/seed/{3}/",
     diets: ["vegetarian", "gluten-free"],
     cuisine: "Italian",
     ingredients: [
@@ -263,7 +262,7 @@ const recipes = [
   {
     id: 12,
     title: "Chicken and Vegetable Skewers",
-    image: "./chicken-skewers.webp",
+    image: `https://picsum.photos/seed/veg/300/200`,
     readyInMinutes: 25,
     servings: 4,
     sourceUrl: "https://example.com/chicken-vegetable-skewers",
@@ -287,7 +286,7 @@ const recipes = [
   {
     id: 13,
     title: "Vegan Chocolate Avocado Mousse",
-    image: "./chocolate-avocado-mousse.webp",
+    image: `https://picsum.photos/seed/avo/300/200`,
     readyInMinutes: 10,
     servings: 2,
     sourceUrl: "https://example.com/vegan-chocolate-avocado-mousse",
@@ -306,7 +305,7 @@ const recipes = [
   }
 ];
 
-const recipeContainer = document.getElementById('recipe-card');
+const recipeContainer = document.getElementById('recipe-container');
 const buttons = document.querySelectorAll(".button-filter, .button-sort");
 const responseDiv = document.querySelector(".response");
 const dropdowns = document.querySelectorAll(".dropbtn");
@@ -352,10 +351,13 @@ recipes.forEach(recipe => {
   recipeCard.innerHTML = `
     <img src="${recipe.image}" alt="${recipe.title}">
     <h3>${recipe.title}</h3>
+    <span></span>
     <p><strong>Cuisine:</strong> ${recipe.cuisine}</p>
     <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
+    <span></span>
     <p><strong>Servings:</strong> ${recipe.servings}</p>
     <p><strong>Price per Serving:</strong> $${recipe.pricePerServing}</p>
+    <ul><strong>Ingredients:</strong> ${recipe.ingredients}</ul>
     <p><strong>Popularity:</strong> ${recipe.popularity}%</p>
     <a href="${recipe.sourceUrl}" target="_blank">Get Recipe</a>
   `;
