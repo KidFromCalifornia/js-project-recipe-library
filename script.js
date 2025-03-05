@@ -306,8 +306,7 @@ const recipes = [
   }
 ];
 
-
-
+const recipeContainer = document.getElementById('recipe-card');
 const buttons = document.querySelectorAll(".button-filter, .button-sort");
 const responseDiv = document.querySelector(".response");
 const dropdowns = document.querySelectorAll(".dropbtn");
@@ -346,3 +345,20 @@ options.forEach(option =>
   })
 );
 
+recipes.forEach(recipe => {
+  const recipeCard = document.createElement('div');
+  recipeCard.classList.add('recipe-card');
+
+  recipeCard.innerHTML = `
+    <img src="${recipe.image}" alt="${recipe.title}">
+    <h3>${recipe.title}</h3>
+    <p><strong>Cuisine:</strong> ${recipe.cuisine}</p>
+    <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
+    <p><strong>Servings:</strong> ${recipe.servings}</p>
+    <p><strong>Price per Serving:</strong> $${recipe.pricePerServing}</p>
+    <p><strong>Popularity:</strong> ${recipe.popularity}%</p>
+    <a href="${recipe.sourceUrl}" target="_blank">Get Recipe</a>
+  `;
+
+  recipeContainer.appendChild(recipeCard);
+});
