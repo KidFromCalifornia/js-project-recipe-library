@@ -235,6 +235,7 @@ img {
   .filtersort-larger {
     padding-left: 48px;
 
+
   }
 
   h1 {
@@ -246,7 +247,12 @@ img {
     border: 1px solid var(--border-dark);
   }
 
-  .filter .selectors>button:focus {
+  .green {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .filter .green>button:focus {
     color: var(--text-light);
     background-color: var(--primary);
     border: 1px solid var(--primary);
@@ -267,9 +273,10 @@ img {
 
   }
 
-  .filter .selectors>button {
+  .filter .green>button {
     background-color: var(--select-dark);
     color: var(--primary);
+    gap: 16px;
   }
 
   .sort .selectors>button {
@@ -279,11 +286,13 @@ img {
 
   .sort {
     justify-content: start;
+    width: 25vh;
 
   }
 
   .filter {
     justify-content: start;
+    width: 25vw;
 
   }
 

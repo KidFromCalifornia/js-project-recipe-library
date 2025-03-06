@@ -306,17 +306,18 @@ const recipes = [
   }
 ];
 
-const recipeContainer = document.getElementById('recipe-container');
+
+
 const buttons = document.querySelectorAll(".button-filter, .button-sort");
 const responseDiv = document.querySelector(".response");
 const dropdowns = document.querySelectorAll(".dropbtn");
-const options = document.querySelectorAll("li option");
 
 
+
+// Handle dropdown clicks
 document.addEventListener("click", event => {
   dropdowns.forEach(dropdown => {
     const menu = dropdown.nextElementSibling;
-
     if (dropdown.contains(event.target)) {
       event.stopPropagation();
       menu.classList.toggle("show");
@@ -328,42 +329,83 @@ document.addEventListener("click", event => {
   });
 });
 
+// Update response text on button click
 buttons.forEach(button =>
   button.addEventListener("click", event => {
     event.preventDefault();
-    responseDiv.textContent = `You clicked: ${event.target.textContent},`;
     responseDiv.textContent = `You selected: ${event.target.textContent}`;
   })
 );
 
+// Handle list item clicks inside dropdowns
 document.querySelectorAll(".selectors li").forEach(item => {
   item.addEventListener("click", event => {
     event.preventDefault();
-    responseDiv.textContent = `You clicked: ${event.target.textContent},`;
     responseDiv.textContent = `You selected: ${event.target.textContent}`;
   });
 });
+const cuisines = [...new Set(recipes.map(recipe => recipe.cuisine))];
 
-recipes.forEach(recipe => {
-  const recipeCard = document.createElement('div');
-  recipeCard.classList.add('recipe-card');
+const generateCuisineButtons = () => {
+  const buttonContainer = document.getElementById('filterButtonsContainer'); // Ensure this exists
+
+  // Generate buttons as an HTML string
+  let buttonsHTML = cuisines
+    .map(cuisine => `<button class="filter-button" data-cuisine="${cuisine}">${cuisine}</button>`)
+    .join("");
+
+  // Add "All Cuisines" button at the end
+  buttonsHTML += `<button class="filter-button" data-cuisine="all">All Cuisines</button>`;
+
+  // Inject into the container
+  buttonContainer.innerHTML = buttonsHTML;
+
+  // Add event listeners to buttons
+  document.querySelectorAll('.filter-button').forEach(button => {
+    button.addEventListener('click', () => filterRecipes(button.dataset.cuisine));
+  });
+};
+
+// Function to filter recipes
+const filterRecipes = (cuisine) => {
+  const filteredRecipes = cuisine === 'all' ? recipes : recipes.filter(recipe => recipe.cuisine === cuisine);
+  displayRecipes(filteredRecipes); // Update UI with filtered recipes
+};
+
+// Call the function to generate buttons
+generateCuisineButtons();
+
+// Function to render recipe cards
 
 
-  const ingredientList = recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join("");
+const generateRecipeCards = () => {
+  const recipeContainer = document.getElementById('recipe-container');
 
-  recipeCard.innerHTML = `
-    <img src="${recipe.image}" alt="${recipe.title}">
-    <h3>${recipe.title}</h3>
-    <span></span>
-    <p><strong>Cuisine:</strong> ${recipe.cuisine}</p>
-    <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
-    <span></span>
-    <p><strong>Servings:</strong> ${recipe.servings}</p>
-  <span></span>
-    <p><strong>Ingredients:</strong></p>
-    <ul class="ingredients-list">${ingredientList}</ul>
+  //code for single HTML injection
+  const recipeCardsHTML = recipes.map(recipe => {
+    const ingredientList = recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join("");
 
-  `;
+    return `
+      <div class="recipe-card">
+        <img src="${recipe.image}" alt="${recipe.title}">
+        <h3>${recipe.title}</h3>
+        <span></span>
+        <p><strong>Cuisine:</strong> ${recipe.cuisine}</p>
+        <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
+        <span></span>
+        <p><strong>Servings:</strong> ${recipe.servings}</p>
+        <p><strong>Price per Serving:</strong> $${recipe.pricePerServing}</p>
+        <p><strong>Ingredients:</strong></p>
+        <ul class="ingredients-list">${ingredientList}</ul>
+        <p><strong>Popularity:</strong> ${recipe.popularity}%</p>
+        <a href="${recipe.sourceUrl}" target="_blank">Get Recipe</a>
+      </div>
+    `;
+  }).join("");
 
-  recipeContainer.appendChild(recipeCard);
-});
+  // Inject all recipe cards at once
+  recipeContainer.innerHTML = recipeCardsHTML;
+};
+
+// Call the function to generate recipe cards
+generateRecipeCards();

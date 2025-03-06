@@ -19,29 +19,11 @@
   <main>
     <div class="filtersort-larger"
          id="filterSort">
-      <div class="flex  filter">
-        <h4> Filter on click</h4>
-        <div class="selectors green">
-          <form class="selectors green">
-            <button type=""
-                    id="all"
-                    class="button-filter">
-              All
-            </button>
-            <button id="japanese"
-                    class="button-filter  ">
-              Japanese
-            </button>
-            <button id="korean"
-                    class="button-filter ">
-              Korean
-            </button>
-            <button id="usa"
-                    class="button-filter">
-              North American
-            </button>
-          </form>
-        </div>
+      <div class="flex filter">
+        <h4>Filter on click</h4>
+        <div class="selectors green"
+             id="filterButtonsContainer"></div>
+
       </div>
 
       <div class="flex sort">
@@ -59,17 +41,17 @@
       </div>
     </div>
     <article class="filtersort-mobile"
-             id="filterSort">
+             id="mobileDropdown">
       <!-- Filter Dropdown -->
       <div class="dropdown filter">
         <button class="dropbtn">Filter</button>
         <ul id="filterDropdown"
             class="selectors filter-content">
-          <li data-value="all">All Cuisines</li>
-          <li data-value="japanese">Japanese</li>
-          <li data-value="korean">Korean</li>
-          <li data-value="usa">North American</li>
-          <li data-value="italian">Italian</li>
+          <li value="all">All Cuisines</li>
+          <li value="japanese">Japanese</li>
+          <li value="korean">Korean</li>
+          <li value="usa">North American</li>
+          <li value="italian">Italian</li>
         </ul>
       </div>
 
@@ -78,8 +60,8 @@
         <button class="dropbtn">Sort</button>
         <ul id="sortDropdown"
             class="selectors sort-content">
-          <li data-value="ascend">Ascending</li>
-          <li data-value="descend">Descending</li>
+          <li value="ascend">Ascending</li>
+          <li value="descend">Descending</li>
         </ul>
       </div>
     </article>
