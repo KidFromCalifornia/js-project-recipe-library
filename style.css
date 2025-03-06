@@ -38,7 +38,7 @@ h1 {
   font: bold 64px "futura", sans-serif;
   color: var(--primary);
   text-align: center;
-  padding-left: 32px;
+
 }
 
 h4 {
@@ -55,9 +55,7 @@ ul {
   text-align: left;
 }
 
-li {
-  padding: 0 0 5px;
-}
+
 
 #filterSort {
   margin-bottom: 32px;
@@ -109,9 +107,6 @@ li {
 }
 
 
-
-
-
 /* filter buttons*/
 
 .dropbtn {
@@ -121,11 +116,13 @@ li {
   padding: 4px 8px;
   height: 8svh;
   z-index: 2;
+  cursor: pointer;
 }
 
 .filter,
 .sort {
   position: relative;
+
 }
 
 .filter button.active {
@@ -145,12 +142,14 @@ li {
 .filter>button {
   background-color: var(--select-dark);
   color: var(--primary);
+  cursor: pointer;
 
 }
 
 .sort>button {
   background-color: var(--select-light);
   color: var(--primary);
+  cursor: pointer;
 }
 
 /* recipe cards*/
@@ -161,6 +160,7 @@ li {
   justify-content: center;
   align-content: start;
   gap: 8px;
+  cursor: pointer;
 
 }
 
@@ -184,6 +184,12 @@ li {
 
 }
 
+li {
+  text-align: center;
+  color: var(--text-light);
+  margin-bottom: 8px;
+}
+
 .ingredients-list {
   display: flex;
   flex-wrap: wrap;
@@ -199,6 +205,7 @@ li {
   text-align: start;
   padding: 0;
   margin: 0px 0px 8px 8px;
+  color: var(--text-dark);
 
 }
 
@@ -226,11 +233,13 @@ img {
   }
 
   .filtersort-larger {
-    padding-left: 32px;
+    padding-left: 48px;
+
   }
 
   h1 {
     text-align: left;
+    padding-left: 48px;
   }
 
   button:hover {
@@ -253,7 +262,7 @@ img {
   button {
     border-radius: 50px;
     border: 1px solid var(--background-light);
-    margin: 5px;
+    cursor: pointer;
     padding: 4px 8px;
 
   }

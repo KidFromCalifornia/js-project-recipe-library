@@ -47,11 +47,11 @@
       <div class="flex sort">
         <h4>Sort on time </h4>
         <form class="selectors pink">
-          <button id="descending"
+          <button data-value="descending"
                   class="button-sort">
             Descending
           </button>
-          <button id="ascending"
+          <button data-value="ascending"
                   class="button-sort ">
             Ascending
           </button>
@@ -60,44 +60,26 @@
     </div>
     <article class="filtersort-mobile"
              id="filterSort">
+      <!-- Filter Dropdown -->
       <div class="dropdown filter">
         <button class="dropbtn">Filter</button>
-        <ul id="myDropdown"
-            class=" selectors filter-content">
-          <li>
-            <option type="checkbox"
-                    value="all">All Cuisines</option>
-          </li>
-          <li>
-            <option type="checkbox"
-                    value="japanese">Japanese</option>
-          </li>
-          <li>
-            <option type="checkbox"
-                    value="korean">Korean</option>
-          </li>
-          <li>
-            <option type="checkbox"
-                    value="usa">North American</option>
-          </li>
-          <li>
-            <option type="checkbox"
-                    value="italian">Italian</option>
-          </li>
+        <ul id="filterDropdown"
+            class="selectors filter-content">
+          <li data-value="all">All Cuisines</li>
+          <li data-value="japanese">Japanese</li>
+          <li data-value="korean">Korean</li>
+          <li data-value="usa">North American</li>
+          <li data-value="italian">Italian</li>
         </ul>
       </div>
+
+      <!-- Sort Dropdown -->
       <div class="dropdown sort">
-        <button class="dropbtn"> Sort </button>
-        <ul id="myDropdown"
+        <button class="dropbtn">Sort</button>
+        <ul id="sortDropdown"
             class="selectors sort-content">
-          <li>
-            <option type="button"
-                    value="ascend"> Ascending </option>
-          </li>
-          <li>
-            <option type=" button"
-                    value="decend"> Descending</option>
-          </li>
+          <li data-value="ascend">Ascending</li>
+          <li data-value="descend">Descending</li>
         </ul>
       </div>
     </article>
