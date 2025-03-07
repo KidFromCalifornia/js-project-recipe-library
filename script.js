@@ -312,6 +312,7 @@ const buttons = document.querySelectorAll(".button-filter, .button-sort");
 const responseDiv = document.querySelector(".response");
 const dropdowns = document.querySelectorAll(".dropbtn");
 const recipeContainer = document.getElementById('recipe-container')
+const filterDropdown = document.getElementById('filterDropdown')
 
 // Handle dropdown clicks
 document.addEventListener("click", event => {
@@ -346,70 +347,117 @@ document.querySelectorAll(".selectors").forEach(item => {
 
 const cuisines = [...new Set(recipes.map(recipe => recipe.cuisine))];
 
-// filter button fuction 
-
+/// Generate cuisine buttons
 const generateCuisineButtons = () => {
   const buttonContainer = document.getElementById('filterButtonsContainer');
 
-  // Generate buttons as an HTML string
   let buttonsHTML = cuisines
-    .map(cuisine => `<button 
-      value="${cuisine}" class="filter-button">${cuisine}</button>`)
+    .map(cuisine => `<button value="${cuisine}" class="filter-button">${cuisine}</button>`)
     .join("");
 
   buttonsHTML = `<button value="all" class="filter-button">All Cuisines</button>` + buttonsHTML;
 
-  // Inject into the container
   buttonContainer.innerHTML = buttonsHTML;
+
+  // Add event listener to buttons after they are created
+  document.querySelectorAll(".filter-button").forEach(button => {
+    button.addEventListener("click", filterCuisine);
+  });
+};
+// sort button created 
+
+const generateSortButtons = () => {
+  const sortContainer = document.getElementById('sortButtonsContainer');
+
+  const sortHTML = `
+    <button value="popularity" class="sort-button">Sort by Popularity</button>
+    <button value="price" class="sort-button">Sort by Price</button>
+    <button value="time" class="sort-button">Sort by Cooking Time</button>
+  `;
+
+  sortContainer.innerHTML = sortHTML;
+
+  // Add event listeners to sort buttons
+  document.querySelectorAll(".sort-button").forEach(button => {
+    button.addEventListener("click", sortRecipes);
+  });
 };
 
-generateCuisineButtons();
-
-
+// Generate cuisine dropdown
 const generateCuisineDropdown = () => {
-  const dropdownContainer = document.getElementById('filterDropdown');
+  const filterDropdown = document.getElementById('filterDropdown');
 
-  // Generate the dropdown options as an HTML string
   let optionsHTML = cuisines
-    .map(cuisine => `<li><button value="${cuisine}" class="filter-option" >${cuisine}</button></li>`)
+    .map(cuisine => `<li><button value="${cuisine}" class="filter-option">${cuisine}</button></li>`)
     .join("");
 
-  // Add the "All Cuisines" option at the top
-  optionsHTML = `<li><Button class="filter-option" data-cuisine="all">All Cuisines</button</li>` + optionsHTML;
+  optionsHTML = `<li><button class="filter-option" value="all">All Cuisines</button></li>` + optionsHTML;
 
-  // Inject the options into the dropdown
-  dropdownContainer.innerHTML = optionsHTML;
+  filterDropdown.innerHTML = optionsHTML;
 
+  // Add event listener to dropdown items after they are created
+  document.querySelectorAll(".filter-option").forEach(option => {
+    option.addEventListener("click", filterCuisine);
+  });
 };
-generateCuisineDropdown();
 
 // Function to render recipe cards
 const recipeCards = (recipes) => {
-  console.log(recipes); // Check if recipes are passed correctly
-
   const recipeContainer = document.getElementById('recipe-container');
-
-  recipeContainer.innerHTML = ''; // 
+  recipeContainer.innerHTML = '';
 
   recipes.forEach(recipe => {
     const ingredientList = recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join("");
 
-    recipeContainer.innerHTML += `
-      <div class="recipe-card">
-        <img src="${recipe.image}" alt="${recipe.title}">
-        <h3>${recipe.title}</h3>
-        <span></span>
-        <p><strong>Cuisine:</strong> ${recipe.cuisine}</p>
-        <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
-        <span></span>
-        <p><strong>Servings:</strong> ${recipe.servings}</p>
-        <p><strong>Price per Serving:</strong> $${recipe.pricePerServing}</p>
-        <p><strong>Ingredients:</strong></p>
-        <ul class="ingredients-list">${ingredientList}</ul>
-        <p><strong>Popularity:</strong> ${recipe.popularity}%</p>
-        <a href="${recipe.sourceUrl}" target="_blank">Get Recipe</a>
-      </div>
+    const recipeCard = document.createElement("div");
+    recipeCard.classList.add("recipe-card");
+
+    recipeCard.innerHTML = `
+      <img src="${recipe.image}" alt="${recipe.title}">
+      <h3>${recipe.title}</h3>
+      <Span></span>
+      <p><strong>Cuisine:</strong> ${recipe.cuisine}</p>
+      <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
+      <p><strong>Servings:</strong> ${recipe.servings}</p>
+    <Span></span>
+      <p><strong>Ingredients:</strong></p>
+      <ul class="ingredients-list">${ingredientList}</ul>
+      <a href="${recipe.sourceUrl}" target="_blank">Get Recipe</a>
     `;
+
+    recipeContainer.appendChild(recipeCard);
   });
 };
-recipeCards(recipes)
+
+// Filter function for both buttons & dropdown
+const filterCuisine = (event) => {
+  const filterValue = event.target.value;
+
+  if (filterValue === "all") {
+    recipeCards(recipes);
+  } else {
+    const filteredRecipes = recipes.filter(recipe => recipe.cuisine === filterValue);
+    recipeCards(filteredRecipes);
+  }
+};
+// Sorting function
+const sortRecipes = (event) => {
+  const sortValue = event.target.value;
+
+  let sortedRecipes = [...recipes];
+
+  if (sortValue === "popularity") {
+    sortedRecipes.sort((a, b) => b.popularity - a.popularity);
+  } else if (sortValue === "price") {
+    sortedRecipes.sort((a, b) => a.pricePerServing - b.pricePerServing);
+  } else if (sortValue === "time") {
+    sortedRecipes.sort((a, b) => a.readyInMinutes - b.readyInMinutes);
+  }
+
+  recipeCards(sortedRecipes);
+};
+// Generate UI elements
+generateCuisineButtons();
+generateCuisineDropdown();
+generateSortButtons();
+recipeCards(recipes);

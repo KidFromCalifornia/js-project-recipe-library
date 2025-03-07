@@ -155,6 +155,8 @@ ul {
   background-color: var(--select-dark);
   color: var(--primary);
   cursor: pointer;
+  margin: 4px;
+
 
 
 }
@@ -263,6 +265,7 @@ img {
   .green {
     display: flex;
     flex-wrap: wrap;
+    justify-content: left;
   }
 
   .filter .green>button:focus {
@@ -284,28 +287,30 @@ img {
     cursor: pointer;
     padding: 4px 8px;
 
+
   }
 
   .filter .green>button {
     background-color: var(--select-dark);
     color: var(--primary);
-
+    margin: 4px;
   }
 
   .sort .selectors>button {
     background-color: var(--select-light);
     color: var(--primary);
+    margin: 4px;
   }
 
   .sort {
     justify-content: start;
-    width: 25vh;
+    width: 35vh;
 
   }
 
   .filter {
     justify-content: start;
-    width: 25vw;
+    width: 35vw;
 
   }
 
