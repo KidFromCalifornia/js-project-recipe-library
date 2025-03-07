@@ -311,7 +311,7 @@ const recipes = [
 const buttons = document.querySelectorAll(".button-filter, .button-sort");
 const responseDiv = document.querySelector(".response");
 const dropdowns = document.querySelectorAll(".dropbtn");
-
+const recipeContainer = document.getElementById('recipe-container')
 
 // Handle dropdown clicks
 document.addEventListener("click", event => {
@@ -384,16 +384,17 @@ const generateCuisineDropdown = () => {
 generateCuisineDropdown();
 
 // Function to render recipe cards
-const recipeCards = () => {
+const recipeCards = (recipes) => {
+  console.log(recipes); // Check if recipes are passed correctly
+
   const recipeContainer = document.getElementById('recipe-container');
 
-  recipeContainer.innerHTML = ``
+  recipeContainer.innerHTML = ''; // 
 
-  //code for single HTML injection
-  const recipeCardsHTML = recipes.map(recipe => {
+  recipes.forEach(recipe => {
     const ingredientList = recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join("");
 
-    return `
+    recipeContainer.innerHTML += `
       <div class="recipe-card">
         <img src="${recipe.image}" alt="${recipe.title}">
         <h3>${recipe.title}</h3>
@@ -409,19 +410,6 @@ const recipeCards = () => {
         <a href="${recipe.sourceUrl}" target="_blank">Get Recipe</a>
       </div>
     `;
-  }).join("");
-
-  // Inject all recipe cards at once
-  recipeContainer.innerHTML = recipeCardsHTML;
+  });
 };
-
-// Call the function to generate recipe cards
-recipeCards();
-
-const recipeContainer = (value) => {
-
-  const recipeContainer = recipe.filter(recipe => recipe.cuisine === value)
-  console.log(' these are the cusines', recipeContainer)
-}
-
-
+recipeCards(recipes)
