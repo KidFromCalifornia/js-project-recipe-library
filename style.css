@@ -49,7 +49,7 @@ h4 {
 
 
 ul {
-  color: var(--text-dark);
+
   padding: 4px;
   margin: 0;
   text-align: left;
@@ -57,7 +57,7 @@ ul {
 
 
 
-#filterSort {
+#mobileDropdown {
   margin-bottom: 32px;
   column-gap: 32px;
 }
@@ -95,6 +95,7 @@ ul {
 .filter-content {
   display: none;
   background-color: var(--primary);
+
 }
 
 .sort-content {
@@ -117,6 +118,17 @@ ul {
   height: 8svh;
   z-index: 2;
   cursor: pointer;
+}
+
+.filter-option {
+  font: 16px "futura", sans-serif;
+  color: var(--text-light);
+  width: 100svw;
+  border: none;
+  background-color: var(--primary);
+  z-index: 2;
+  cursor: pointer;
+  margin-bottom: 8px;
 }
 
 .filter,
@@ -143,6 +155,7 @@ ul {
   background-color: var(--select-dark);
   color: var(--primary);
   cursor: pointer;
+
 
 }
 
@@ -184,10 +197,10 @@ ul {
 
 }
 
-li {
+.sort li {
   text-align: center;
   color: var(--text-light);
-  margin-bottom: 8px;
+  ;
 }
 
 .ingredients-list {
@@ -276,7 +289,7 @@ img {
   .filter .green>button {
     background-color: var(--select-dark);
     color: var(--primary);
-    gap: 16px;
+
   }
 
   .sort .selectors>button {

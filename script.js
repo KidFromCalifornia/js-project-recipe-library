@@ -313,7 +313,6 @@ const responseDiv = document.querySelector(".response");
 const dropdowns = document.querySelectorAll(".dropbtn");
 
 
-
 // Handle dropdown clicks
 document.addEventListener("click", event => {
   dropdowns.forEach(dropdown => {
@@ -338,48 +337,57 @@ buttons.forEach(button =>
 );
 
 // Handle list item clicks inside dropdowns
-document.querySelectorAll(".selectors li").forEach(item => {
+document.querySelectorAll(".selectors").forEach(item => {
   item.addEventListener("click", event => {
     event.preventDefault();
     responseDiv.textContent = `You selected: ${event.target.textContent}`;
   });
 });
+
 const cuisines = [...new Set(recipes.map(recipe => recipe.cuisine))];
 
+// filter button fuction 
+
 const generateCuisineButtons = () => {
-  const buttonContainer = document.getElementById('filterButtonsContainer'); // Ensure this exists
+  const buttonContainer = document.getElementById('filterButtonsContainer');
 
   // Generate buttons as an HTML string
   let buttonsHTML = cuisines
-    .map(cuisine => `<button class="filter-button" data-cuisine="${cuisine}">${cuisine}</button>`)
+    .map(cuisine => `<button 
+      value="${cuisine}" class="filter-button">${cuisine}</button>`)
     .join("");
 
-  // Add "All Cuisines" button at the end
-  buttonsHTML += `<button class="filter-button" data-cuisine="all">All Cuisines</button>`;
+  buttonsHTML = `<button value="all" class="filter-button">All Cuisines</button>` + buttonsHTML;
 
   // Inject into the container
   buttonContainer.innerHTML = buttonsHTML;
-
-  // Add event listeners to buttons
-  document.querySelectorAll('.filter-button').forEach(button => {
-    button.addEventListener('click', () => filterRecipes(button.dataset.cuisine));
-  });
 };
 
-// Function to filter recipes
-const filterRecipes = (cuisine) => {
-  const filteredRecipes = cuisine === 'all' ? recipes : recipes.filter(recipe => recipe.cuisine === cuisine);
-  displayRecipes(filteredRecipes); // Update UI with filtered recipes
-};
-
-// Call the function to generate buttons
 generateCuisineButtons();
 
+
+const generateCuisineDropdown = () => {
+  const dropdownContainer = document.getElementById('filterDropdown');
+
+  // Generate the dropdown options as an HTML string
+  let optionsHTML = cuisines
+    .map(cuisine => `<li><button value="${cuisine}" class="filter-option" >${cuisine}</button></li>`)
+    .join("");
+
+  // Add the "All Cuisines" option at the top
+  optionsHTML = `<li><Button class="filter-option" data-cuisine="all">All Cuisines</button</li>` + optionsHTML;
+
+  // Inject the options into the dropdown
+  dropdownContainer.innerHTML = optionsHTML;
+
+};
+generateCuisineDropdown();
+
 // Function to render recipe cards
-
-
-const generateRecipeCards = () => {
+const recipeCards = () => {
   const recipeContainer = document.getElementById('recipe-container');
+
+  recipeContainer.innerHTML = ``
 
   //code for single HTML injection
   const recipeCardsHTML = recipes.map(recipe => {
@@ -408,4 +416,12 @@ const generateRecipeCards = () => {
 };
 
 // Call the function to generate recipe cards
-generateRecipeCards();
+recipeCards();
+
+const recipeContainer = (value) => {
+
+  const recipeContainer = recipe.filter(recipe => recipe.cuisine === value)
+  console.log(' these are the cusines', recipeContainer)
+}
+
+
