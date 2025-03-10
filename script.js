@@ -1,7 +1,53 @@
+const URL = `https://api.spoonacular.com/recipes/random?number=5&apiKey=c73e23ce1ee149baaab903ff81a775fa`;
+const buttons = document.querySelectorAll(".button-filter, .button-sort");
+const responseDiv = document.querySelector(".response");
+const dropdowns = document.querySelectorAll(".dropbtn");
+const recipeContainer = document.getElementById('recipe-container')
+const filterDropdown = document.getElementById('filterDropdown')
+const buttonContainer = document.getElementById('filterButtonsContainer')
 
 // recipes //
 
-const recipes = [
+
+fetch(URL)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  })
+  .then((json) => {
+    recipeContainer.innerHTML = '';
+
+    json.recipes.forEach(recipe => {
+      const ingredientList = recipe.extendedIngredients
+        .map(ingredient => `<li>${ingredient.original}</li>`)
+        .join("");
+
+
+
+      const recipeCard = document.createElement("div");
+      recipeCard.classList.add("recipe-card");
+
+      recipeCard.innerHTML += `
+        <img src="${recipe.image}" alt="${recipe.title}">
+        <h3>${recipe.title}</h3>
+        <p><strong>Cuisine:</strong> ${recipe.cuisines}</p>
+        <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
+        <p><strong>Servings:</strong> ${recipe.servings}</p>
+        <p><strong>Ingredients:</strong></p>
+        <ul class="ingredients-list">${ingredientList}</ul>
+        <a href="${recipe.sourceUrl}" target="_blank">Get Recipe</a>
+      `;
+
+      recipeContainer.appendChild(recipeCard);
+    });
+
+    console.log('Recipe object:', json.recipes); // Fixed log statement
+  })
+  .catch(error => console.error('Error fetching data:', error));
+
+/*const recipes = [
   {
     id: 1,
     title: "Vegan Lentil Soup",
@@ -308,11 +354,7 @@ const recipes = [
 
 
 
-const buttons = document.querySelectorAll(".button-filter, .button-sort");
-const responseDiv = document.querySelector(".response");
-const dropdowns = document.querySelectorAll(".dropbtn");
-const recipeContainer = document.getElementById('recipe-container')
-const filterDropdown = document.getElementById('filterDropdown')
+
 
 // Handle dropdown clicks
 document.addEventListener("click", event => {
@@ -328,14 +370,15 @@ document.addEventListener("click", event => {
     }
   });
 });
+*/
 
 // Update response text on button click
-buttons.forEach(button =>
+/*buttons.forEach(button =>
   button.addEventListener("click", event => {
     event.preventDefault();
     responseDiv.textContent = `You selected: ${event.target.textContent}`;
   })
-);
+); 
 
 // Handle list item clicks inside dropdowns
 document.querySelectorAll(".selectors").forEach(item => {
@@ -344,15 +387,17 @@ document.querySelectorAll(".selectors").forEach(item => {
     responseDiv.textContent = `You selected: ${event.target.textContent}`;
   });
 });
+*/
 
-const cuisines = [...new Set(recipes.map(recipe => recipe.cuisine))];
+
+const cuisines = [...new Set(json.recipes.flatMap(recipe => recipe.cuisines))];
 
 /// Generate cuisine buttons
 const generateCuisineButtons = () => {
-  const buttonContainer = document.getElementById('filterButtonsContainer');
+  ;
 
   let buttonsHTML = cuisines
-    .map(cuisine => `<button value="${cuisine}" class="filter-button">${cuisine}</button>`)
+    .map(cuisine => `<button value="${recipe.cuisine}" class="filter-button">${recipe.cuisine}</button>`)
     .join("");
 
   buttonsHTML = `<button value="all" class="filter-button">All Cuisines</button>` + buttonsHTML;
@@ -398,6 +443,25 @@ const generateCuisineDropdown = () => {
   // Add event listener to dropdown items after they are created
   document.querySelectorAll(".filter-option").forEach(option => {
     option.addEventListener("click", filterCuisine);
+  });
+};
+
+// sort dropdown -  innerHTML
+
+const SortDropdown = () => {
+  const sortContainer = document.getElementById('sortDropdown');
+
+  const sortHTML = `
+    <li><button value="popularity" class="sort-button">Sort by Popularity</button></li>
+    <li><button value="price" class="sort-button">Sort by Price</button></li>
+    <li><button value="time" class="sort-button">Sort by Cooking Time</button></li>
+  `;
+
+  sortContainer.innerHTML = sortHTML;
+
+  // Add event listeners to sort buttons
+  document.querySelectorAll(".sort-button").forEach(button => {
+    button.addEventListener("click", sortRecipes);
   });
 };
 
@@ -460,4 +524,5 @@ const sortRecipes = (event) => {
 generateCuisineButtons();
 generateCuisineDropdown();
 generateSortButtons();
+SortDropdown()
 recipeCards(recipes);
