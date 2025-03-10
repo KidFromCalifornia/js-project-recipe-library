@@ -1,4 +1,4 @@
-const URL = `https://api.spoonacular.com/recipes/random?number=5&apiKey=c73e23ce1ee149baaab903ff81a775fa`;
+const URL = `https://api.spoonacular.com/recipes/random?number=8&apiKey=c73e23ce1ee149baaab903ff81a775fa`;
 const buttons = document.querySelectorAll(".button-filter, .button-sort");
 const responseDiv = document.querySelector(".response");
 const dropdowns = document.querySelectorAll(".dropbtn");
@@ -24,8 +24,6 @@ fetch(URL)
         .map(ingredient => `<li>${ingredient.original}</li>`)
         .join("");
 
-
-
       const recipeCard = document.createElement("div");
       recipeCard.classList.add("recipe-card");
 
@@ -44,6 +42,12 @@ fetch(URL)
     });
 
     console.log('Recipe object:', json.recipes); // Fixed log statement
+
+    then((json) => {
+
+    })
+
+
   })
   .catch(error => console.error('Error fetching data:', error));
 
@@ -390,25 +394,30 @@ document.querySelectorAll(".selectors").forEach(item => {
 */
 
 
-const cuisines = [...new Set(json.recipes.flatMap(recipe => recipe.cuisines))];
+// Extract unique cuisines from recipes
+const cuisines = [...new Set(recipes.flatMap(recipe => recipe.cuisines))];
 
-/// Generate cuisine buttons
+// Generate cuisine buttons
 const generateCuisineButtons = () => {
-  ;
+  const buttonContainer = document.getElementById("filterButtonsContainer"); // Ensure it's declared
 
   let buttonsHTML = cuisines
-    .map(cuisine => `<button value="${recipe.cuisine}" class="filter-button">${recipe.cuisine}</button>`)
+    .map(cuisine => `<button value="${cuisine}" class="filter-button">${cuisine}</button>`)
     .join("");
 
+  // Add "All Cuisines" button
   buttonsHTML = `<button value="all" class="filter-button">All Cuisines</button>` + buttonsHTML;
 
   buttonContainer.innerHTML = buttonsHTML;
 
-  // Add event listener to buttons after they are created
+  // Add event listeners to buttons after they are created
   document.querySelectorAll(".filter-button").forEach(button => {
     button.addEventListener("click", filterCuisine);
   });
 };
+
+// Call the function to generate buttons
+generateCuisineButtons();
 // sort button created 
 
 const generateSortButtons = () => {
@@ -465,7 +474,7 @@ const SortDropdown = () => {
   });
 };
 
-// Function to render recipe cards
+/* Function to render recipe cards
 const recipeCards = (recipes) => {
   const recipeContainer = document.getElementById('recipe-container');
   recipeContainer.innerHTML = '';
@@ -492,6 +501,7 @@ const recipeCards = (recipes) => {
     recipeContainer.appendChild(recipeCard);
   });
 };
+*/
 
 // Filter function for both buttons & dropdown
 const filterCuisine = (event) => {

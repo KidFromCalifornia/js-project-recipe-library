@@ -3,10 +3,9 @@
   --primary: #0018A4;
   --secondary: #FF6589;
 
-  /*filter colors*/
+  /* Filter Colors */
   --select-dark: #CCFFE2;
   --select-light: #FFECEA;
-
 
   /* Backgrounds */
   --background-light: #FAFBFF;
@@ -20,41 +19,33 @@
   --border-light: #E9E9E9;
   --border-dark: #0018A4;
 
-
   /* Shadows */
   --shadow-light: rgba(137, 156, 204, 0.3);
   --shadow-dark: rgba(0, 0, 0, 0.3);
-
 }
-
 
 body {
   background-color: var(--background-light);
   color: var(--text-dark);
-  font-family: "futura", sans-serif;
+  font-family: "Futura", sans-serif;
 }
 
 h1 {
-  font: bold 64px "futura", sans-serif;
+  font: bold 64px "Futura", sans-serif;
   color: var(--primary);
   text-align: center;
-
 }
 
 h4 {
-  font: bold 24px "futura", sans-serif;
+  font: bold 24px "Futura", sans-serif;
   color: var(--text-dark);
 }
 
-
-
 ul {
-
   padding: 4px;
   margin: 0;
   text-align: left;
 }
-
 
 
 #mobileDropdown {
@@ -62,7 +53,7 @@ ul {
   column-gap: 32px;
 }
 
-
+/* Filter & Sort Containers */
 .filtersort-larger {
   display: none;
 }
@@ -79,27 +70,25 @@ ul {
   margin-bottom: 32px;
 }
 
-
-.filter-content .sort-content {
+/* Dropdown Content */
+.filter-content,
+.sort-content {
   display: none;
   position: absolute;
   z-index: 2;
   width: 100vw;
   min-width: 150px;
-  font: 16px var(--text-light) "futura", sans-serif;
+  font: 16px var(--text-light) "Futura", sans-serif;
   text-align: center;
   top: 100%;
   box-sizing: border-box;
 }
 
 .filter-content {
-  display: none;
   background-color: var(--primary);
-
 }
 
 .sort-content {
-  display: none;
   background-color: var(--secondary);
 }
 
@@ -107,26 +96,23 @@ ul {
   display: block;
 }
 
-
-/* filter buttons*/
-
+/* Filter & Sort Buttons */
 .dropbtn {
-  font: 16px "futura", sans-serif var(--primary);
-  width: 100svw;
+  font: 16px "Futura", sans-serif;
+  color: var(--primary);
+  width: 100vw;
   border: none;
   padding: 4px 8px;
-  height: 8svh;
-  z-index: 2;
+  height: 8vh;
   cursor: pointer;
 }
 
 .filter-option {
-  font: 16px "futura", sans-serif;
+  font: 16px "Futura", sans-serif;
   color: var(--text-light);
-  width: 100svw;
+  width: 100vw;
   border: none;
   background-color: var(--primary);
-  z-index: 2;
   cursor: pointer;
   margin-bottom: 8px;
 }
@@ -134,21 +120,18 @@ ul {
 .filter,
 .sort {
   position: relative;
-
 }
 
 .filter button.active {
   color: var(--text-light);
   background-color: var(--primary);
   border: 2px solid var(--primary);
-  z-index: 2;
 }
 
 .sort button.active {
   color: var(--select-light);
   background-color: var(--secondary);
   border: 2px solid var(--secondary);
-  z-index: 2;
 }
 
 .filter>button {
@@ -156,9 +139,6 @@ ul {
   color: var(--primary);
   cursor: pointer;
   margin: 4px;
-
-
-
 }
 
 .sort>button {
@@ -167,90 +147,80 @@ ul {
   cursor: pointer;
 }
 
-/* recipe cards*/
+/* Recipe Cards */
 .recipe-container {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  align-content: start;
   gap: 8px;
   cursor: pointer;
-
 }
-
 
 .recipe-card {
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
-  align-items: start;
   border: 2px solid var(--border-dark);
   box-shadow: 0px 0px 30px var(--shadow-light);
   border-radius: 16px;
   width: 300px;
   height: auto;
-  padding: 16px 16px 24px 16px;
-  z-index: 1;
+  padding: 16px 16px 24px;
   box-sizing: border-box;
-  align-items: start;
-
-
-
 }
 
 .sort li {
   text-align: center;
   color: var(--text-light);
-  ;
 }
 
 .ingredients-list {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
   align-items: flex-start;
   padding: 0;
-
 }
 
 .ingredients-list li {
-  display: flex;
-  flex-direction: column;
   text-align: start;
   padding: 0;
-  margin: 0px 0px 8px 8px;
+  margin: 0 0 8px 8px;
   color: var(--text-dark);
-
+  list-style-type: none;
 }
-
 
 span {
   width: 240px;
   height: 2px;
-  background-color: #E9E9E9;
-  justify-self: center;
+  background-color: var(--border-light);
 }
 
 img {
-  height: clamp(200px, 50%, 400px);
-  width: auto;
-  align-self: stretch;
+  max-width: 300px;
+  max-height: 200px;
   object-fit: cover;
   border-radius: 16px;
+
 }
 
+/* Ensure `.selectors` is properly styled */
+.selectors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
 
+/* Desktop Adjustments */
 @media (min-width: 820px) {
-
   .filtersort-mobile {
     display: none;
   }
 
   .filtersort-larger {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
     padding-left: 48px;
-
-
   }
 
   h1 {
@@ -280,14 +250,11 @@ img {
     border: 1px solid var(--secondary);
   }
 
-
   button {
     border-radius: 50px;
     border: 1px solid var(--background-light);
     cursor: pointer;
     padding: 4px 8px;
-
-
   }
 
   .filter .green>button {
@@ -303,41 +270,27 @@ img {
   }
 
   .sort {
-    justify-content: start;
     width: 35vh;
-
   }
 
   .filter {
-    justify-content: start;
     width: 35vw;
-
-  }
-
-  .filtersort-larger {
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
   }
 
   .recipe-container {
-    align-content: start;
     justify-content: space-evenly;
     gap: 16px;
     padding: 16px;
-    align-self: center;
   }
 
   .recipe-card {
     width: 300px;
     border: 2px solid var(--background-light);
-    margin-bottom: 0;
-    align-self: flex-start;
+    box-sizing: border-box;
   }
 
   .recipe-card:hover {
     border: 2px solid var(--border-dark);
     box-shadow: 0px 0px 30px var(--shadow-light);
-    border-radius: 16px;
   }
 }
