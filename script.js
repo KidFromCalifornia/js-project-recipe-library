@@ -1,5 +1,16 @@
-const BASE_URL = `https://api.spoonacular.com/recipes/`
-const URL = `https://api.spoonacular.com/recipes/random?number=8&apiKey=c73e23ce1ee149baaab903ff81a775fa`;
+const BASE_URL = `https://api.spoonacular.com/recipes/`;
+const API_KEY = `c73e23ce1ee149baaab903ff81a775fa`;
+const fixedCuisines = [
+  "African", "Asian", "American", "British", "Cajun", "Caribbean", "Chinese", "Eastern European", "European", "French", "German",
+  "Greek", "Indian", "Irish", "Italian", "Japanese", "Jewish", "Korean", "Latin American", "Mediterranean", "Mexican",
+  "Middle Eastern", "Nordic", "Southern", "Spanish", "Thai", "Vietnamese"
+];
+
+
+
+const URL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=8&cuisine=${fixedCuisines}&addRecipeInformation=true`;
+
+console.log(URL);
 
 const recipeContainer = document.getElementById("recipe-container");
 const filterDropdown = document.getElementById("filterDropdown");
@@ -12,53 +23,56 @@ fetch(URL)
     return response.json();
   })
   .then(data => {
-    const recipes = data.recipes; // Store recipes
+    const recipes = data.results;
 
     console.log("Recipe object:", recipes);
 
-    generateFilterButtons(recipes);
     generateFilterDropdown(recipes);
-    generateSortButtons(recipes);
+    generateFilterButtons(recipes);
     generateSortDropdown(recipes);
+    generateSortButtons(recipes);
     recipeCards(recipes);
   })
   .catch(error => {
     console.error("There has been a problem with your fetch operation:", error);
   });
 
-// Extract unique diets
-const getUniqueDiets = (recipes) => [...new Set(recipes.flatMap(recipe => recipe.diets || []))];
+// Get unique filter values
+const getUniqueFilter = (recipes) => {
+  const uniqueCuisines = new Set();
+  recipes.forEach(recipe => {
+    (recipe.cuisines || []).forEach(cuisine => uniqueCuisines.add(cuisine));
+  });
+  return [...uniqueCuisines];
+};
 
 // Generate filter buttons
 const generateFilterButtons = (recipes) => {
   if (!buttonContainer) return;
 
-  const diets = getUniqueDiets(recipes);
+  const cuisines = getUniqueFilter(recipes);
   buttonContainer.innerHTML = `
-    <button value="all" class="filter-button">All Diets</button>
-    ${diets.map(diet => `<button value="${diet}" class="filter-button">${diet}</button>`).join("")}
+    <button value="all" class="filter-button">All Cuisines</button>
+    ${cuisines.map(cuisine => `<button value="${cuisine}" class="filter-button">${cuisine}</button>`).join("")}
   `;
 
   document.querySelectorAll(".filter-button").forEach(button => {
-    button.addEventListener("click", (event) => filterCuisine(event, recipes));
+    button.addEventListener("click", (event) => filterSelect(event, recipes));
   });
 };
-
-// Extract unique cuisines
-const getUniquediets = (recipes) => [...new Set(recipes.flatMap(recipe => recipe.cuisines || []))];
 
 // Generate cuisine dropdown
 const generateFilterDropdown = (recipes) => {
   if (!filterDropdown) return;
 
-  const diets = getUniqueDiets(recipes);
+  const cuisines = getUniqueFilter(recipes);
   filterDropdown.innerHTML = `
-   <button value="all" class="filter-button">All Diets</button>
-    ${diets.map(diet => `<button value="${diet}" class="filter-button">${diet}</button>`).join("")}
+    <li><button value="all" class="filter-button">All Cuisines</button></li>
+    ${cuisines.map(cuisine => `<li><button value="${cuisine}" class="filter-button">${cuisine}</button></li>`).join("")}
   `;
 
-  document.querySelectorAll(".filter-option").forEach(option => {
-    option.addEventListener("click", (event) => filterCuisine(event, recipes));
+  document.querySelectorAll(".filter-button").forEach(option => {
+    option.addEventListener("click", (event) => filterSelect(event, recipes));
   });
 };
 
@@ -101,9 +115,17 @@ const recipeCards = (recipes) => {
   recipeContainer.innerHTML = "";
 
   recipes.forEach(recipe => {
+    if (!recipe.diets) {
+      recipe.diets = [];
+    }
     const ingredientList = (recipe.extendedIngredients || [])
-      .map(ingredient => `<li>${ingredient.original}</li>`)
+      .map(ingredient => {
+        const amount = ingredient.measures?.metric?.amount || ingredient.amount;
+        const unit = ingredient.measures?.metric?.unitLong || ingredient.unit;
+        return `<li>${amount} ${unit} - ${ingredient.originalName}</li>`;
+      })
       .join("");
+    const cleanDietsText = (recipe.diets || []).map(diet => diet.charAt(0).toUpperCase() + diet.slice(1)).join(", ");
 
     const recipeCard = document.createElement("div");
     recipeCard.classList.add("recipe-card");
@@ -111,9 +133,10 @@ const recipeCards = (recipes) => {
     recipeCard.innerHTML = `
       <img src="${recipe.image}" alt="${recipe.title}">
       <h3>${recipe.title}</h3>
-      <p><strong>Diet:</strong> ${recipe.diets}</p>
       <span></span>
-      <p><strong>Price per serving:</strong> $${recipe.pricePerServing}</p>
+      <p><strong>Cuisine:</strong> ${recipe.cuisines.join(", ")}</p>
+      <p><strong>Diet:</strong> ${cleanDietsText}</p>
+      <span></span>
       <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
       <p><strong>Servings:</strong> ${recipe.servings}</p>
       <span></span>
@@ -127,14 +150,14 @@ const recipeCards = (recipes) => {
 };
 
 // Filter function for cuisine
-const filterCuisine = (event, recipes) => {
-  const filterValue = event.target.value;
+const filterSelect = (event, recipes) => {
   event.preventDefault();
+  const filterValue = event.target.value;
 
   if (filterValue === "all") {
     recipeCards(recipes);
   } else {
-    const filteredRecipes = recipes.filter(recipe => recipe.diets.includes(filterValue));
+    const filteredRecipes = recipes.filter(recipe => recipe.cuisines.includes(filterValue));
     recipeCards(filteredRecipes);
   }
 };
@@ -156,16 +179,20 @@ const sortRecipes = (event, recipes) => {
 
   recipeCards(sortedRecipes);
 };
+
 // Handle dropdown clicks
-const dropdowns = document.querySelectorAll(".sort-content, .filter-content");
-document.addEventListener("click", event => {
+const dropdowns = document.querySelectorAll(".dropdown");
+
+document.addEventListener("click", (event) => {
   dropdowns.forEach(dropdown => {
-    const menu = dropdown.nextElementSibling;
+    const menu = dropdown.querySelector(".filter-content, .sort-content");
+    if (!menu) return;
+
     if (dropdown.contains(event.target)) {
       event.stopPropagation();
       menu.classList.toggle("show");
       dropdown.classList.toggle("active");
-    } else if (!menu.contains(event.target)) {
+    } else {
       menu.classList.remove("show");
       dropdown.classList.remove("active");
     }

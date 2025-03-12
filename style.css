@@ -73,14 +73,9 @@ ul {
   align-items: center;
 }
 
-.response {
-  position: relative;
-  text-align: center;
-  margin-bottom: 32px;
-}
 
-
-.filter-content .sort-content {
+.filter-content,
+.sort-content {
   display: none;
   position: absolute;
   z-index: 2;
@@ -116,12 +111,12 @@ ul {
   border: none;
   padding: 4px 8px;
   height: 8svh;
-  z-index: 2;
+  z-index: 1;
   cursor: pointer;
 }
 
-.filter-option {
-  font: 16px "futura", sans-serif;
+.filter-button {
+  font: 18px "futura", sans-serif;
   color: var(--text-light);
   width: 100svw;
   border: none;
@@ -131,21 +126,33 @@ ul {
   margin-bottom: 8px;
 }
 
+.sort-button {
+  font: 18px "futura", sans-serif;
+  color: var(--text-light);
+  width: 100svw;
+  border: none;
+  background-color: var(--secondary);
+  z-index: 2;
+  cursor: pointer;
+  margin-bottom: 8px;
+
+}
+
 .filter,
 .sort {
   position: relative;
 
 }
 
-.filter button.active {
+.filter.active>button {
   color: var(--text-light);
   background-color: var(--primary);
   border: 2px solid var(--primary);
   z-index: 2;
 }
 
-.sort button.active {
-  color: var(--select-light);
+.sort.active>button {
+  color: var(--text-light);
   background-color: var(--secondary);
   border: 2px solid var(--secondary);
   z-index: 2;
@@ -155,10 +162,6 @@ ul {
   background-color: var(--select-dark);
   color: var(--primary);
   cursor: pointer;
-  margin: 4px;
-
-
-
 }
 
 .sort>button {
@@ -188,21 +191,18 @@ ul {
   border: 2px solid var(--border-dark);
   box-shadow: 0px 0px 30px var(--shadow-light);
   border-radius: 16px;
-  width: 300px;
+  width: 320px;
   height: auto;
   padding: 16px 16px 24px 16px;
   z-index: 1;
   box-sizing: border-box;
   align-items: start;
 
-
-
 }
 
 .sort li {
   text-align: center;
   color: var(--text-light);
-  ;
 }
 
 .ingredients-list {
@@ -233,11 +233,12 @@ span {
 }
 
 img {
-  height: clamp(200px, 50%, 400px);
-  width: auto;
   align-self: stretch;
   object-fit: cover;
+  max-width: 268px;
+  max-height: 200px;
   border-radius: 16px;
+  box-sizing: border-box;
 }
 
 
