@@ -115,7 +115,7 @@ ul {
   cursor: pointer;
 }
 
-.filter-button {
+#filterDropdown .filter-button {
   font: 18px "futura", sans-serif;
   color: var(--text-light);
   width: 100svw;
@@ -126,7 +126,7 @@ ul {
   margin-bottom: 8px;
 }
 
-.sort-button {
+#sortDropdown .sort-button {
   font: 18px "futura", sans-serif;
   color: var(--text-light);
   width: 100svw;
@@ -169,6 +169,7 @@ ul {
   color: var(--primary);
   cursor: pointer;
 }
+
 
 /* recipe cards*/
 .recipe-container {
