@@ -8,7 +8,7 @@ const fixedCuisines = [
 
 
 
-const URL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=8&cuisine=${fixedCuisines}&addRecipeInformation=true`;
+const URL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=8&cuisine=${fixedCuisines.join(",")}&addRecipeInformation=true`;
 
 console.log(URL);
 
@@ -18,6 +18,7 @@ const buttonContainer = document.getElementById("filterButtonsContainer");
 
 // Fetch recipes
 fetch(URL)
+
   .then(response => {
     if (!response.ok) throw new Error("Network response was not ok");
     return response.json();
@@ -31,10 +32,11 @@ fetch(URL)
     generateFilterButtons(recipes);
     generateSortDropdown(recipes);
     generateSortButtons(recipes);
+    document.getElementById("search").addEventListener("input", () => searchFunction(recipes));
     recipeCards(recipes);
   })
   .catch(error => {
-    console.error("There has been a problem with your fetch operation:", error);
+    alert("There has been a problem with your fetch operation:", error);
   });
 
 // Get unique filter values
@@ -107,6 +109,8 @@ const generateSortDropdown = (recipes) => {
     button.addEventListener("click", (event) => sortRecipes(event, recipes));
   });
 };
+// seach function
+
 
 // Render recipe cards
 const recipeCards = (recipes) => {
@@ -115,17 +119,12 @@ const recipeCards = (recipes) => {
   recipeContainer.innerHTML = "";
 
   recipes.forEach(recipe => {
-    if (!recipe.diets) {
-      recipe.diets = [];
-    }
     const ingredientList = (recipe.extendedIngredients || [])
-      .map(ingredient => {
-        const amount = ingredient.measures?.metric?.amount || ingredient.amount;
-        const unit = ingredient.measures?.metric?.unitLong || ingredient.unit;
-        return `<li>${amount} ${unit} - ${ingredient.originalName}</li>`;
-      })
+      .map(ingredient => `<li>${ingredient.original}</li>`)
       .join("");
+
     const cleanDietsText = (recipe.diets || []).map(diet => diet.charAt(0).toUpperCase() + diet.slice(1)).join(", ");
+    const cleancuisinesText = (recipe.cuisines || []).map(cuisine => cuisine.charAt(0).toUpperCase() + cuisine.slice(1)).join(", ");
 
     const recipeCard = document.createElement("div");
     recipeCard.classList.add("recipe-card");
@@ -134,7 +133,7 @@ const recipeCards = (recipes) => {
       <img src="${recipe.image}" alt="${recipe.title}">
       <h3>${recipe.title}</h3>
       <span></span>
-      <p><strong>Cuisine:</strong> ${recipe.cuisines.join(", ")}</p>
+      <p><strong>Cuisine:</strong> ${cleancuisinesText}</p>
       <p><strong>Diet:</strong> ${cleanDietsText}</p>
       <span></span>
       <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
@@ -144,7 +143,7 @@ const recipeCards = (recipes) => {
       <ul class="ingredients-list">${ingredientList}</ul>
       <a href="${recipe.sourceUrl}" target="_blank">Get Recipe</a>
     `;
-
+    console.log(ingredientList);
     recipeContainer.appendChild(recipeCard);
   });
 };
@@ -198,3 +197,14 @@ document.addEventListener("click", (event) => {
     }
   });
 });
+function searchFunction(recipes) {
+  let query = document.getElementById("search").value.toLowerCase();
+
+  const filteredRecipes = recipes.filter(recipe =>
+    recipe.title.toLowerCase().includes(query) ||
+    recipe.cuisines.some(cuisine => cuisine.toLowerCase().includes(query)) ||
+    recipe.diets.some(diets => diets.toLowerCase().includes(query))
+  );
+
+  recipeCards(filteredRecipes);
+}
