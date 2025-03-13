@@ -8,36 +8,45 @@ const fixedCuisines = [
 
 
 
-const URL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=8&cuisine=${fixedCuisines.join(",")}&addRecipeInformation=true`;
+const URL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=50&cuisine=${fixedCuisines.join(',')}&fillIngredients=true&addRecipeInformation=true&sort=random`;
 
 console.log(URL);
 
 const recipeContainer = document.getElementById("recipe-container");
 const filterDropdown = document.getElementById("filterDropdown");
 const buttonContainer = document.getElementById("filterButtonsContainer");
+const missingRecipe = document.getElementById("missingRecipe");
 
 // Fetch recipes
 fetch(URL)
-
   .then(response => {
     if (!response.ok) throw new Error("Network response was not ok");
     return response.json();
   })
   .then(data => {
     const recipes = data.results;
-
-    console.log("Recipe object:", recipes);
-
-    generateFilterDropdown(recipes);
-    generateFilterButtons(recipes);
-    generateSortDropdown(recipes);
-    generateSortButtons(recipes);
-    document.getElementById("search").addEventListener("input", () => searchFunction(recipes));
-    recipeCards(recipes);
+    localStorage.setItem("recipes", JSON.stringify(recipes));
+    console.log("Recipes fetched and stored in localStorage:", recipes);
+    initializePage(recipes);
   })
   .catch(error => {
     alert("There has been a problem with your fetch operation:", error);
+    const storedRecipes = localStorage.getItem("recipes");
+    if (storedRecipes) {
+      const recipes = JSON.parse(storedRecipes);
+      console.log("Using stored recipes from localStorage:", recipes);
+      initializePage(recipes);
+    }
   });
+
+function initializePage(recipes) {
+  generateFilterDropdown(recipes);
+  generateFilterButtons(recipes);
+  generateSortDropdown(recipes);
+  generateSortButtons(recipes);
+  document.getElementById("search").addEventListener("input", () => searchFunction(recipes));
+  recipeCards(recipes);
+}
 
 // Get unique filter values
 const getUniqueFilter = (recipes) => {
@@ -101,7 +110,7 @@ const generateSortDropdown = (recipes) => {
 
   sortContainer.innerHTML = `
     <li><button value="popularity" class="sort-button">Sort by Popularity</button></li>
-    <li><button value="price" class="sort-button">Sort by Price</button></li>
+    <li><button value="price" class="sort-button">Sort by Price</li>
     <li><button value="time" class="sort-button">Sort by Cooking Time</button></li>
   `;
 
@@ -119,9 +128,7 @@ const recipeCards = (recipes) => {
   recipeContainer.innerHTML = "";
 
   recipes.forEach(recipe => {
-    const ingredientList = (recipe.extendedIngredients || [])
-      .map(ingredient => `<li>${ingredient.original}</li>`)
-      .join("");
+
 
     const cleanDietsText = (recipe.diets || []).map(diet => diet.charAt(0).toUpperCase() + diet.slice(1)).join(", ");
     const cleancuisinesText = (recipe.cuisines || []).map(cuisine => cuisine.charAt(0).toUpperCase() + cuisine.slice(1)).join(", ");
@@ -140,12 +147,13 @@ const recipeCards = (recipes) => {
       <p><strong>Servings:</strong> ${recipe.servings}</p>
       <span></span>
       <p><strong>Ingredients:</strong></p>
-      <ul class="ingredients-list">${ingredientList}</ul>
+      <ul class="ingredients-list">${(recipe.extendedIngredients || []).map(ingredient => `<li>${ingredient.original}</li>`).join("")}</ul>
       <a href="${recipe.sourceUrl}" target="_blank">Get Recipe</a>
     `;
-    console.log(ingredientList);
+
     recipeContainer.appendChild(recipeCard);
   });
+  console.log(recipes);
 };
 
 // Filter function for cuisine
@@ -198,13 +206,22 @@ document.addEventListener("click", (event) => {
   });
 });
 function searchFunction(recipes) {
+  if (!recipes) {
+    return;
+  }
   let query = document.getElementById("search").value.toLowerCase();
 
   const filteredRecipes = recipes.filter(recipe =>
     recipe.title.toLowerCase().includes(query) ||
     recipe.cuisines.some(cuisine => cuisine.toLowerCase().includes(query)) ||
-    recipe.diets.some(diets => diets.toLowerCase().includes(query))
+    recipe.diets.some(diet => diet.toLowerCase().includes(query))
   );
 
-  recipeCards(filteredRecipes);
+  if (query === "") {
+    recipeCards(recipes);
+  } else if (filteredRecipes.length === 0) {
+    recipeContainer.innerHTML = `<p>No matching recipes found, what else sounds good?</p>`;
+  } else {
+    recipeCards(filteredRecipes);
+  }
 }

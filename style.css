@@ -105,12 +105,11 @@ ul {
 /* filter buttons*/
 
 .dropbtn {
-  font: 16px "futura", sans-serif var(--primary);
-  width: 100svw;
+  font: 16px "futura", sans-serif;
+  color: var(--primary);
+  width: 100%;
   border: none;
-  padding: 4px 8px;
-  height: 8svh;
-  z-index: 1;
+  padding: 4px 16px;
   cursor: pointer;
 }
 
@@ -120,7 +119,6 @@ ul {
   width: 100svw;
   border: none;
   background-color: var(--primary);
-  z-index: 2;
   cursor: pointer;
   margin-bottom: 8px;
 }
@@ -131,10 +129,8 @@ ul {
   width: 100svw;
   border: none;
   background-color: var(--secondary);
-  z-index: 2;
   cursor: pointer;
   margin-bottom: 8px;
-
 }
 
 .filter,
@@ -192,7 +188,7 @@ ul {
   box-shadow: 0px 0px 30px var(--shadow-light);
   border-radius: 16px;
   width: 320px;
-  height: auto;
+  height: 100%;
   padding: 16px 16px 24px 16px;
   z-index: 1;
   box-sizing: border-box;
@@ -332,7 +328,7 @@ img {
     max-height: 24px;
     border-radius: 16px;
     margin: 32px 0px;
-    box-shadow: 0px 0px 30px var(--shadow-light)
+    box-shadow: 0px 0px 30px var(--shadow-light);
   }
 
   .search-container:hover {
@@ -346,11 +342,10 @@ img {
     border-radius: 16px;
     outline: none;
     text-indent: 8px;
-    font: 13px "futura", sans-serif var(--primary);
+    font: 13px "futura", sans-serif;
   }
 
   .search-button {
-
     position: absolute;
     justify-self: end;
     background: none;
