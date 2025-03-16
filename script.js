@@ -8,8 +8,6 @@ const fixedCuisines = [
 
 const URL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=50&cuisine=${fixedCuisines.join(',')}&fillIngredients=true&addRecipeInformation=true&sort=random`;
 
-console.log(URL);
-
 const recipeContainer = document.getElementById("recipe-container");
 const filterDropdown = document.getElementById("filterDropdown");
 const buttonContainer = document.getElementById("filterButtonsContainer");
@@ -30,7 +28,6 @@ fetch(URL)
   .then(data => {
     const recipes = data.results;
     localStorage.setItem("recipes", JSON.stringify(recipes));
-    console.log("Recipes fetched and stored in localStorage:", recipes);
     initializePage(recipes);
   })
   .catch(error => {
@@ -38,8 +35,10 @@ fetch(URL)
     const storedRecipes = localStorage.getItem("recipes");
     if (storedRecipes) {
       const recipes = JSON.parse(storedRecipes);
-      console.log("Using stored recipes from localStorage:", recipes);
       initializePage(recipes);
+      else {
+        recipeContainer.innerHTML = `<p>Unable to retrieve recipes. Please try again later.</p>`;
+      }
     }
   });
 
@@ -102,7 +101,7 @@ const generateSortButtons = (recipes) => {
 
   sortContainer.innerHTML = `
     <button value="servings" class="sort-button">Sort by Servings</button>
-    <button value="Propularity" class="sort-button">Sort by Propularity</button>
+    <button value="Popularity" class="sort-button">Sort by Popularity</button>
     <button value="time" class="sort-button">Sort by Cooking Time</button>
   `;
 
@@ -118,7 +117,7 @@ const generateSortDropdown = (recipes) => {
 
   sortContainer.innerHTML = `
     <li><button value="servings" class="sort-button">Sort by Servings</button></li>
-    <li><button value="Propularity" class="sort-button">Sort by Propularity</li>
+    <li><button value="Popularity" class="sort-button">Sort by Popularity</li>
     <li><button value="time" class="sort-button">Sort by Cooking Time</button></li>
   `;
 
@@ -161,7 +160,6 @@ const recipeCards = (recipes) => {
 
     recipeContainer.appendChild(recipeCard);
   });
-  console.log(recipes);
 };
 
 // Filter function for cuisine
@@ -186,7 +184,7 @@ const sortRecipes = (event, recipes) => {
 
   if (sortValue === "servings") {
     sortedRecipes.sort((a, b) => (a.servings || 0) - (b.servings || 0));
-  } else if (sortValue === "Propularity") {
+  } else if (sortValue === "Popularity") {
     sortedRecipes.sort((a, b) => (b.aggregateLikes || 0) - (a.aggregateLikes || 0));
   } else if (sortValue === "time") {
     sortedRecipes.sort((a, b) => (a.readyInMinutes || 0) - (b.readyInMinutes || 0));

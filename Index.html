@@ -5,6 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+        content="Discover a variety of recipes from different cuisines.">
+  <meta name="keywords"
+        content="recipes, cooking, cuisine, food">
   <title>Recipe Library</title>
   <link rel="stylesheet"
         href="style.css">
@@ -33,8 +37,7 @@
       </div>
       <div class="right-side">
         <div class="search-container">
-          <label for="search"
-                 class="visually-hidden">Search Recipes</label>
+          `
           <input type="text"
                  class="search-input"
                  id="search"
@@ -86,10 +89,10 @@
 
     </article>
     <section id="recipe-container"
-             class="recipe-container">
-      <div id="missingRecipe"
-           class="missing-recipe"
-           style="display: none;"></div>
+             class="recipe-container"
+             aria-live="polite"
+             aria-atomic="true"></section>
+
     </section>
 
   </main>

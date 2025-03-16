@@ -346,6 +346,8 @@ li {
 
   button:hover {
     border: 1px solid var(--border-dark);
+    box-shadow: 0px 0px 30px var(--shadow-light);
+    ;
   }
 
   .green {
