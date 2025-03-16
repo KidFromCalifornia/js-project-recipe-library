@@ -8,6 +8,8 @@
   <title>Recipe Library</title>
   <link rel="stylesheet"
         href="style.css">
+  <script src="https://kit.fontawesome.com/04d91e792e.js"
+          crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -20,49 +22,114 @@
       <div class="flex filter">
         <h4>Filter by Cuisine</h4>
         <form class="selectors green"
-              id="filterButtonsContainer"></form>
+              id="filterButtonsContainer"
+              aria-label="Filter by Cuisine"></form>
       </div>
       <div class="flex sort">
         <h4>Sort by</h4>
         <form id="sortButtons"
-              class="selectors pink"></form>
+              class="selectors pink"
+              aria-label="Sort by options"></form>
       </div>
-      <div class="search-container">
-        <input type="text"
-               class="search-input"
-               id="search"
-               placeholder=" &#x2315;  What sounds good?">
+      <div class="right-side">
+        <div class="search-container">
+          <label for="search"
+                 class="visually-hidden">Search Recipes</label>
+          <input type="text"
+                 class="search-input"
+                 id="search"
+                 placeholder=" &#x2315;  What sounds good?"
+                 aria-label="Search Recipes">
+        </div>
+        <button id="randomRecipeButton"
+                class="random-lrg"
+                aria-label="Get a random recipe"> I don't Know! </button>
       </div>
     </div>
     <article class="filtersort-mobile"
              id="mobileDropdown">
+
       <!-- Filter Dropdown -->
+
       <div class="dropdown filter">
-        <button class="dropbtn">Filter</button>
+        <button class="dropbtn"
+                aria-haspopup="true"
+                aria-expanded="false">Filter</button>
         <ul id="filterDropdown"
-            class="selectors filter-content"></ul>
+            class="selectors filter-content"
+            aria-label="Filter options"></ul>
       </div>
+
       <!-- Sort Dropdown -->
       <div class="dropdown sort">
-        <button class="dropbtn">Sort</button>
+        <button class="dropbtn"
+                aria-haspopup="true"
+                aria-expanded="false">Sort</button>
         <ul id="sortDropdown"
-            class="selectors sort-content"></ul>
+            class="selectors sort-content"
+            aria-label="Sort options"></ul>
       </div>
+
       <div class="search-container">
+        <label for="search-mobile"
+               class="visually-hidden">Search Recipes</label>
         <input type="text"
                class="search-input"
-               id="search"
-               placeholder=" &#x2315;  What sounds good?">
+               id="search-mobile"
+               style="justify-content: center; align-content:center ;"
+               placeholder=" &#x2315;  What sounds good?"
+               aria-label="Search Recipes">
       </div>
+      <button id="randomRecipeButton"
+              class=""
+              aria-label="Get a random recipe"> I don't Know, you choose!</button>
+
     </article>
     <section id="recipe-container"
              class="recipe-container">
       <div id="missingRecipe"
-           class="missing-recipe"></div>
+           class="missing-recipe"
+           style="display: none;"></div>
     </section>
 
   </main>
-  <footer></footer>
+  <footer>
+    <div class="footer-parent">
+      <div class="footer-left">
+        <h5>©Jonny Hicks 2025 </h5>
+      </div>
+      <ul class="footer-right">
+        <li>
+          <a href="https://github.com/KidFromCalifornia"
+             target="_blank"
+             class="Github"
+             Alt=" Link to Github"
+             aria-label="Link to Github">
+            <i class="fa-brands fa-github"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/jonathanwhicks/"
+             target="_blank"
+             class="linkedin"
+             alt=" Link to linkdin"
+             aria-label="Link to LinkedIn">
+            <i class="fa-brands fa-linkedin"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/thekidfromcalifornia"
+             target="_blank"
+             class="instagram"
+             alt=" Link to instagram"
+             aria-label="Link to Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </footer>
   <script src="script.js"></script>
 </body>
 

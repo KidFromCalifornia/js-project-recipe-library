@@ -6,8 +6,6 @@ const fixedCuisines = [
   "Middle Eastern", "Nordic", "Southern", "Spanish", "Thai", "Vietnamese"
 ];
 
-
-
 const URL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=50&cuisine=${fixedCuisines.join(',')}&fillIngredients=true&addRecipeInformation=true&sort=random`;
 
 console.log(URL);
@@ -16,6 +14,12 @@ const recipeContainer = document.getElementById("recipe-container");
 const filterDropdown = document.getElementById("filterDropdown");
 const buttonContainer = document.getElementById("filterButtonsContainer");
 const missingRecipe = document.getElementById("missingRecipe");
+
+// Function to select a random recipe
+const getRandomRecipe = (recipes) => {
+  const randomIndex = Math.floor(Math.random() * recipes.length);
+  return recipes[randomIndex];
+};
 
 // Fetch recipes
 fetch(URL)
@@ -30,7 +34,7 @@ fetch(URL)
     initializePage(recipes);
   })
   .catch(error => {
-    alert("There has been a problem with your fetch operation:", error);
+    alert("OH NO! There is an issue with retrieving new recipes,\nplease try again tomorrow or continue with previous retrieved recipes.\n\n  " + error);
     const storedRecipes = localStorage.getItem("recipes");
     if (storedRecipes) {
       const recipes = JSON.parse(storedRecipes);
@@ -45,6 +49,10 @@ function initializePage(recipes) {
   generateSortDropdown(recipes);
   generateSortButtons(recipes);
   document.getElementById("search").addEventListener("input", () => searchFunction(recipes));
+  document.getElementById("randomRecipeButton").addEventListener("click", () => {
+    const randomRecipe = getRandomRecipe(recipes);
+    recipeCards([randomRecipe]);
+  });
   recipeCards(recipes);
 }
 
@@ -78,7 +86,7 @@ const generateFilterDropdown = (recipes) => {
 
   const cuisines = getUniqueFilter(recipes);
   filterDropdown.innerHTML = `
-    <li><button value="all" class="filter-button">All Cuisines</button></li>
+    <li><button value="all" class="filter-button">All</button></li>
     ${cuisines.map(cuisine => `<li><button value="${cuisine}" class="filter-button">${cuisine}</button></li>`).join("")}
   `;
 
@@ -93,8 +101,8 @@ const generateSortButtons = (recipes) => {
   if (!sortContainer) return;
 
   sortContainer.innerHTML = `
-    <button value="popularity" class="sort-button">Sort by Popularity</button>
-    <button value="price" class="sort-button">Sort by Price</button>
+    <button value="servings" class="sort-button">Sort by Servings</button>
+    <button value="Propularity" class="sort-button">Sort by Propularity</button>
     <button value="time" class="sort-button">Sort by Cooking Time</button>
   `;
 
@@ -109,8 +117,8 @@ const generateSortDropdown = (recipes) => {
   if (!sortContainer) return;
 
   sortContainer.innerHTML = `
-    <li><button value="popularity" class="sort-button">Sort by Popularity</button></li>
-    <li><button value="price" class="sort-button">Sort by Price</li>
+    <li><button value="servings" class="sort-button">Sort by Servings</button></li>
+    <li><button value="Propularity" class="sort-button">Sort by Propularity</li>
     <li><button value="time" class="sort-button">Sort by Cooking Time</button></li>
   `;
 
@@ -118,8 +126,6 @@ const generateSortDropdown = (recipes) => {
     button.addEventListener("click", (event) => sortRecipes(event, recipes));
   });
 };
-// seach function
-
 
 // Render recipe cards
 const recipeCards = (recipes) => {
@@ -128,7 +134,9 @@ const recipeCards = (recipes) => {
   recipeContainer.innerHTML = "";
 
   recipes.forEach(recipe => {
-
+    const ingredientList = (recipe.extendedIngredients || [])
+      .map(ingredient => `<li>${ingredient.original}</li>`)
+      .join("");
 
     const cleanDietsText = (recipe.diets || []).map(diet => diet.charAt(0).toUpperCase() + diet.slice(1)).join(", ");
     const cleancuisinesText = (recipe.cuisines || []).map(cuisine => cuisine.charAt(0).toUpperCase() + cuisine.slice(1)).join(", ");
@@ -147,7 +155,7 @@ const recipeCards = (recipes) => {
       <p><strong>Servings:</strong> ${recipe.servings}</p>
       <span></span>
       <p><strong>Ingredients:</strong></p>
-      <ul class="ingredients-list">${(recipe.extendedIngredients || []).map(ingredient => `<li>${ingredient.original}</li>`).join("")}</ul>
+      <ul class="ingredients-list">${ingredientList}</ul>
       <a href="${recipe.sourceUrl}" target="_blank">Get Recipe</a>
     `;
 
@@ -176,10 +184,10 @@ const sortRecipes = (event, recipes) => {
 
   let sortedRecipes = [...recipes];
 
-  if (sortValue === "popularity") {
+  if (sortValue === "servings") {
+    sortedRecipes.sort((a, b) => (a.servings || 0) - (b.servings || 0));
+  } else if (sortValue === "Propularity") {
     sortedRecipes.sort((a, b) => (b.aggregateLikes || 0) - (a.aggregateLikes || 0));
-  } else if (sortValue === "price") {
-    sortedRecipes.sort((a, b) => (a.pricePerServing || 0) - (b.pricePerServing || 0));
   } else if (sortValue === "time") {
     sortedRecipes.sort((a, b) => (a.readyInMinutes || 0) - (b.readyInMinutes || 0));
   }
@@ -205,6 +213,8 @@ document.addEventListener("click", (event) => {
     }
   });
 });
+
+// search function
 function searchFunction(recipes) {
   if (!recipes) {
     return;
