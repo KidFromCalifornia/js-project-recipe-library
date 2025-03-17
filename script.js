@@ -36,9 +36,8 @@ fetch(URL)
     if (storedRecipes) {
       const recipes = JSON.parse(storedRecipes);
       initializePage(recipes);
-      else {
-        recipeContainer.innerHTML = `<p>Unable to retrieve recipes. Please try again later.</p>`;
-      }
+
+
     }
   });
 
