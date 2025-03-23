@@ -40,22 +40,19 @@ fetch(URL)
   });
 
 function initializePage(recipes) {
-  generateFilterDropdown(recipes);
-  generateFilterButtons(recipes);
-  generateSortDropdown(recipes);
-  generateSortButtons(recipes);
-  document.getElementById("search").addEventListener("input", () => searchFunction(recipes));
-  document.getElementById("searchMobile").addEventListener("input", () => searchFunction(recipes));
-  document.getElementById("randomRecipeButton").addEventListener("click", () => {
-    console.log("Random recipe button clicked");
-    const randomRecipe = getRandomRecipe(recipes);
-    recipeCards([randomRecipe]);
+  generateDropdown(filterDropdown, recipes, "filter");
+  generateButtons(buttonContainer, recipes, "filter");
+  generateDropdown(document.getElementById("sortDropdown"), recipes, "sort");
+  generateButtons(document.getElementById("sortButtons"), recipes, "sort");
+  document.querySelectorAll("#search, #searchMobile").forEach(input => {
+    input.addEventListener("input", () => searchFunction(recipes));
   });
-
-  document.getElementById("randomMobile").addEventListener("click", () => {
-    console.log("Random recipe button clicked");
-    const randomRecipe = getRandomRecipe(recipes);
-    recipeCards([randomRecipe]);
+  document.querySelectorAll("#randomRecipeButton, #randomMobile").forEach(button => {
+    button.addEventListener("click", () => {
+      console.log("Random recipe button clicked");
+      const randomRecipe = getRandomRecipe(recipes);
+      recipeCards([randomRecipe]);
+    });
   });
   recipeCards(recipes);
 }
@@ -69,65 +66,39 @@ const getUniqueFilter = (recipes) => {
   return [...uniqueCuisines];
 };
 
-// Generate filter buttons
-const generateFilterButtons = (recipes) => {
-  if (!buttonContainer) return;
+// Generate buttons
+const generateButtons = (container, recipes, type) => {
+  if (!container) return;
 
-  const cuisines = getUniqueFilter(recipes);
-  buttonContainer.innerHTML = `
-    <button value="all" class="filter-button">All Cuisines</button>
-    ${cuisines.map(cuisine => `<button value="${cuisine}" class="filter-button">${cuisine}</button>`).join("")}
+  const items = type === "filter" ? getUniqueFilter(recipes) : ["servings", "Popularity", "time"];
+  const buttonClass = type === "filter" ? "filter-button" : "sort-button";
+  const buttonText = type === "filter" ? "All Cuisines" : "Sort by";
+
+  container.innerHTML = `
+    <button value="all" class="${buttonClass}">${buttonText}</button>
+    ${items.map(item => `<button value="${item}" class="${buttonClass}">${item}</button>`).join("")}
   `;
 
-  document.querySelectorAll(".filter-button").forEach(button => {
-    button.addEventListener("click", (event) => filterSelect(event, recipes));
+  document.querySelectorAll(`.${buttonClass}`).forEach(button => {
+    button.addEventListener("click", (event) => type === "filter" ? filterSelect(event, recipes) : sortRecipes(event, recipes));
   });
 };
 
-// Generate cuisine dropdown
-const generateFilterDropdown = (recipes) => {
-  if (!filterDropdown) return;
+// Generate dropdown
+const generateDropdown = (container, recipes, type) => {
+  if (!container) return;
 
-  const cuisines = getUniqueFilter(recipes);
-  filterDropdown.innerHTML = `
-    <li><button value="all" class="filter-button">All</button></li>
-    ${cuisines.map(cuisine => `<li><button value="${cuisine}" class="filter-button">${cuisine}</button></li>`).join("")}
+  const items = type === "filter" ? getUniqueFilter(recipes) : ["servings", "Popularity", "time"];
+  const buttonClass = type === "filter" ? "filter-button" : "sort-button";
+  const buttonText = type === "filter" ? "All" : "Sort by";
+
+  container.innerHTML = `
+    <li><button value="all" class="${buttonClass}">${buttonText}</button></li>
+    ${items.map(item => `<li><button value="${item}" class="${buttonClass}">${item}</button></li>`).join("")}
   `;
 
-  document.querySelectorAll(".filter-button").forEach(option => {
-    option.addEventListener("click", (event) => filterSelect(event, recipes));
-  });
-};
-
-// Generate sort buttons
-const generateSortButtons = (recipes) => {
-  const sortContainer = document.getElementById("sortButtons");
-  if (!sortContainer) return;
-
-  sortContainer.innerHTML = `
-    <button value="servings" class="sort-button">Sort by Servings</button>
-    <button value="Popularity" class="sort-button">Sort by Popularity</button>
-    <button value="time" class="sort-button">Sort by Cooking Time</button>
-  `;
-
-  document.querySelectorAll(".sort-button").forEach(button => {
-    button.addEventListener("click", (event) => sortRecipes(event, recipes));
-  });
-};
-
-// Generate sort dropdown
-const generateSortDropdown = (recipes) => {
-  const sortContainer = document.getElementById("sortDropdown");
-  if (!sortContainer) return;
-
-  sortContainer.innerHTML = `
-    <li><button value="servings" class="sort-button">Sort by Servings</button></li>
-    <li><button value="Popularity" class="sort-button">Sort by Popularity</li>
-    <li><button value="time" class="sort-button">Sort by Cooking Time</button></li>
-  `;
-
-  document.querySelectorAll(".sort-button").forEach(button => {
-    button.addEventListener("click", (event) => sortRecipes(event, recipes));
+  document.querySelectorAll(`.${buttonClass}`).forEach(option => {
+    option.addEventListener("click", (event) => type === "filter" ? filterSelect(event, recipes) : sortRecipes(event, recipes));
   });
 };
 
