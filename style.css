@@ -32,6 +32,9 @@ body {
   background-color: var(--background-light);
   color: var(--text-dark);
   font-family: "futura", sans-serif;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
@@ -63,6 +66,7 @@ ul {
   margin: 0;
   text-align: left;
 }
+
 
 
 
@@ -113,26 +117,19 @@ ul {
 .dropbtn {
   font: 20px "futura", sans-serif;
   color: var(--primary);
-  width: 100svw;
+  width: 100dvw;
   border: none;
-  padding: 20px 8px;
+  padding: 16px 8px;
   cursor: pointer;
 }
 
+
+
+#sortDropdown .sort-button,
 #filterDropdown .filter-button {
   font: 16px "futura", sans-serif;
   color: var(--text-light);
-  width: 100svw;
-  border: none;
-  background-color: var(--primary);
-  cursor: pointer;
-  margin-bottom: 8px;
-}
-
-#sortDropdown .sort-button {
-  font: 16px "futura", sans-serif;
-  color: var(--text-light);
-  width: 100svw;
+  width: 100dvw;
   border: none;
   background-color: var(--secondary);
   cursor: pointer;
@@ -170,49 +167,38 @@ ul {
   color: var(--primary);
   cursor: pointer;
 }
-
-.search-container {
+.search-input {
+  display: flex;
   position: relative;
   justify-content: center;
   width: 100%;
-  height: 40px;
-  border: 4px solid var(--border-dark);
-  margin: 8px 0px;
-  padding: 0px 8px;
+  height: 66.5px;
   box-sizing: border-box;
-}
-
-
-.search-input {
-
+  white-space: nowrap;
+  padding: 16px 8px;
+  font: 20px "futura", sans-serif;
   color: var(--primary);
-  width: 100%;
+  text-align: center;
   border: none;
-  background-color: var(--background-light);
-  outline: none;
-  text-indent: 8px;
-  font: 16px "futura", sans-serif;
-  padding-left: 2px;
 }
 
+::placeholder {
+  text-align: center;
+}
 /* random button */
 
-#randomRecipeButton.active {
-  color: var(--text-light);
-  background-color: var(--secondary);
-  border: 2px solid var(--secondary);
-  z-index: 2;
-}
 
-#randomRecipeButton {
+
+#randomRecipeButton,
+#randomMobile {
+  display: block;
   font: 20px "futura", sans-serif;
-  width: 100svw;
+  width: 100vw;
   border: none;
   padding: 20px 8px;
   cursor: pointer;
   background-color: var(--primary);
   color: var(--text-light);
-  cursor: pointer;
 }
 
 /* recipe cards*/
@@ -223,8 +209,8 @@ ul {
   justify-content: center;
   align-content: start;
   gap: 8px;
-  cursor: pointer;
-
+  margin-bottom: 1rem;
+  width: auto;
 }
 
 
@@ -232,7 +218,6 @@ ul {
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
-  align-items: start;
   border: 2px solid var(--border-dark);
   box-shadow: 0px 0px 30px var(--shadow-light);
   border-radius: 16px;
@@ -241,8 +226,8 @@ ul {
   padding: 16px 16px 24px 16px;
   z-index: 1;
   box-sizing: border-box;
-  align-items: start;
-
+  text-align: start;
+  margin: 8px;
 }
 
 .sort li {
@@ -278,11 +263,11 @@ span {
 }
 
 img {
-  align-self: stretch;
   object-fit: cover;
   max-width: 268px;
   max-height: 200px;
   border-radius: 16px;
+  align-self: center;
   box-sizing: border-box;
 }
 
@@ -300,22 +285,17 @@ img {
   max-height: fit-content;
 }
 
+
+.footer-right,
 .footer-left {
   display: inline-flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  margin: 0;
-  padding: 0;
-  font: 20px "futura", sans-serif var(--text-light);
+  color: var(--background-light);
+  font: 16px "futura", sans-serif;
 }
 
-.footer-right {
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-}
 
 .footer-right li a {
   text-decoration: none;
@@ -337,8 +317,6 @@ li {
   .filtersort-larger {
     padding-left: 48px;
     padding-right: 48px;
-
-
   }
 
   h1 {
@@ -406,19 +384,20 @@ li {
   .filtersort-larger {
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: center
   }
 
   .search-container {
     display: flex;
-    background-color: transparent;
+    background-color: var(--background-light);
     border: none;
+    height: 66px;
+    width: auto;
   }
 
   .search-input:hover {
     border: 2px solid var(--border-dark);
     border-radius: 50px;
-    border: 2px solid var(--primary);
     height: 32px;
   }
 
@@ -428,9 +407,11 @@ li {
     border-radius: 50px;
     outline: none;
     text-indent: 8px;
-    font: 13px "futura", sans-serif;
+    font: 16px "futura", sans-serif;
     height: 32px;
     box-shadow: 0px 0px 30px var(--shadow-light);
+    padding: 0;
+    margin: 0;
 
   }
 
@@ -485,5 +466,5 @@ li {
 .footer-left,
 .footer-right {
   gap: 32px;
-  font: 16px "futura", sans-serif var(--text-light);
+  font: px "futura", sans-serif var(--text-light);
 }

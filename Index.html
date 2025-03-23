@@ -21,7 +21,7 @@
     <h1>Recipe Library</h1>
   </header>
   <main>
-    <div class="filtersort-larger"
+    <nav class="filtersort-larger"
          id="filterSort">
       <div class="flex filter">
         <h4>Filter by Cuisine</h4>
@@ -37,7 +37,6 @@
       </div>
       <div class="right-side">
         <div class="search-container">
-          `
           <input type="text"
                  class="search-input"
                  id="search"
@@ -45,11 +44,11 @@
                  aria-label="Search Recipes">
         </div>
         <button id="randomRecipeButton"
-                class="random-lrg"
+                class="random lrg"
                 aria-label="Get a random recipe"> I don't Know! </button>
       </div>
-    </div>
-    <article class="filtersort-mobile"
+    </nav>
+    <nav class="filtersort-mobile"
              id="mobileDropdown">
 
       <!-- Filter Dropdown -->
@@ -73,21 +72,20 @@
             aria-label="Sort options"></ul>
       </div>
 
-      <div class="search-container">
-        <label for="search-mobile"
-               class="visually-hidden"></label>
+      <div class="search-mobile">
+        <label for="search-mobile"></label>
         <input type="text"
                class="search-input"
-               id="search-mobile"
-               style="justify-content: center; align-content:center ;"
+               id="searchMobile"
                placeholder=" &#x2315;  What sounds good?"
                aria-label="Search Recipes">
       </div>
-      <button id="randomRecipeButton"
-              class=""
-              aria-label="Get a random recipe"> I don't Know, you choose!</button>
+      <button id="randomMobile"
+              class="random mobile"
+              aria-label="Get a random recipe"> I don't Know!
+      </button>
 
-    </article>
+    </nav>
     <section id="recipe-container"
              class="recipe-container"
              aria-live="polite"
@@ -99,7 +97,7 @@
   <footer>
     <div class="footer-parent">
       <div class="footer-left">
-        <h5>©Jonny Hicks 2025 </h5>
+        <h6>©Jonny Hicks 2025 </h6>
       </div>
       <ul class="footer-right">
         <li>

@@ -6,7 +6,7 @@ const fixedCuisines = [
   "Middle Eastern", "Nordic", "Southern", "Spanish", "Thai", "Vietnamese"
 ];
 
-const URL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=50&cuisine=${fixedCuisines.join(',')}&fillIngredients=true&addRecipeInformation=true&sort=random`;
+const URL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=10&cuisine=${fixedCuisines.join(',')}&fillIngredients=true&addRecipeInformation=true&sort=random`;
 
 const recipeContainer = document.getElementById("recipe-container");
 const filterDropdown = document.getElementById("filterDropdown");
@@ -36,8 +36,6 @@ fetch(URL)
     if (storedRecipes) {
       const recipes = JSON.parse(storedRecipes);
       initializePage(recipes);
-
-
     }
   });
 
@@ -47,7 +45,15 @@ function initializePage(recipes) {
   generateSortDropdown(recipes);
   generateSortButtons(recipes);
   document.getElementById("search").addEventListener("input", () => searchFunction(recipes));
+  document.getElementById("searchMobile").addEventListener("input", () => searchFunction(recipes));
   document.getElementById("randomRecipeButton").addEventListener("click", () => {
+    console.log("Random recipe button clicked");
+    const randomRecipe = getRandomRecipe(recipes);
+    recipeCards([randomRecipe]);
+  });
+
+  document.getElementById("randomMobile").addEventListener("click", () => {
+    console.log("Random recipe button clicked");
     const randomRecipe = getRandomRecipe(recipes);
     recipeCards([randomRecipe]);
   });
@@ -216,7 +222,7 @@ function searchFunction(recipes) {
   if (!recipes) {
     return;
   }
-  let query = document.getElementById("search").value.toLowerCase();
+  let query = document.getElementById("search").value.toLowerCase() || document.getElementById("searchMobile").value.toLowerCase();
 
   const filteredRecipes = recipes.filter(recipe =>
     recipe.title.toLowerCase().includes(query) ||
