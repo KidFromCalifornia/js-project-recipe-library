@@ -3,10 +3,9 @@
   --primary: #0018A4;
   --secondary: #FF6589;
 
-  /*filter colors*/
+  /* Filter Colors */
   --select-dark: #CCFFE2;
   --select-light: #FFECEA;
-
 
   /* Backgrounds */
   --background-light: #FAFBFF;
@@ -20,13 +19,10 @@
   --border-light: #E9E9E9;
   --border-dark: #0018A4;
 
-
   /* Shadows */
   --shadow-light: rgba(137, 156, 204, 0.3);
   --shadow-dark: rgba(0, 0, 0, 0.3);
-
 }
-
 
 body {
   background-color: var(--background-light);
@@ -41,7 +37,6 @@ h1 {
   font: bold 64px "futura", sans-serif;
   color: var(--primary);
   text-align: center;
-
 }
 
 h4 {
@@ -56,7 +51,6 @@ h5 {
 }
 
 i {
-
   color: var(--text-light);
   cursor: pointer;
 }
@@ -67,14 +61,10 @@ ul {
   text-align: left;
 }
 
-
-
-
 #mobileDropdown {
   margin-bottom: 32px;
   column-gap: 32px;
 }
-
 
 .filtersort-larger {
   display: none;
@@ -85,7 +75,6 @@ ul {
   flex-direction: column;
   align-items: center;
 }
-
 
 .filter-content,
 .sort-content {
@@ -111,9 +100,7 @@ ul {
   display: block;
 }
 
-
-/* filter buttons*/
-
+/* Filter buttons */
 .dropbtn {
   font: 20px "futura", sans-serif;
   color: var(--primary);
@@ -123,23 +110,28 @@ ul {
   cursor: pointer;
 }
 
-
-
 #sortDropdown .sort-button,
 #filterDropdown .filter-button {
   font: 16px "futura", sans-serif;
-  color: var(--text-light);
   width: 100dvw;
   border: none;
-  background-color: var(--secondary);
   cursor: pointer;
   margin-bottom: 8px;
+}
+
+#sortDropdown .sort-button {
+  color: var(--text-light);
+  background-color: var(--secondary);
+}
+
+#filterDropdown .filter-button {
+  color: var(--text-light);
+  background-color: var(--primary);
 }
 
 .filter,
 .sort {
   position: relative;
-
 }
 
 .filter.active>button {
@@ -167,6 +159,7 @@ ul {
   color: var(--primary);
   cursor: pointer;
 }
+
 .search-input {
   display: flex;
   position: relative;
@@ -185,10 +178,8 @@ ul {
 ::placeholder {
   text-align: center;
 }
-/* random button */
 
-
-
+/* Random button */
 #randomRecipeButton,
 #randomMobile {
   display: block;
@@ -201,7 +192,7 @@ ul {
   color: var(--text-light);
 }
 
-/* recipe cards*/
+/* Recipe cards */
 .recipe-container {
   display: flex;
   flex-direction: row;
@@ -212,7 +203,6 @@ ul {
   margin-bottom: 1rem;
   width: auto;
 }
-
 
 .recipe-card {
   display: flex;
@@ -241,7 +231,6 @@ ul {
   flex-direction: column;
   align-items: flex-start;
   padding: 0;
-
 }
 
 .ingredients-list li {
@@ -251,9 +240,7 @@ ul {
   padding: 0;
   margin: 0px 0px 8px 8px;
   color: var(--text-dark);
-
 }
-
 
 span {
   width: 240px;
@@ -271,10 +258,8 @@ img {
   box-sizing: border-box;
 }
 
-/*footer*/
-
+/* Footer */
 .footer-parent {
-
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -285,7 +270,6 @@ img {
   max-height: fit-content;
 }
 
-
 .footer-right,
 .footer-left {
   display: inline-flex;
@@ -295,7 +279,6 @@ img {
   color: var(--background-light);
   font: 16px "futura", sans-serif;
 }
-
 
 .footer-right li a {
   text-decoration: none;
@@ -309,7 +292,6 @@ li {
 }
 
 @media (min-width: 820px) {
-
   .filtersort-mobile {
     display: none;
   }
@@ -327,7 +309,6 @@ li {
   button:hover {
     border: 1px solid var(--border-dark);
     box-shadow: 0px 0px 30px var(--shadow-light);
-    ;
   }
 
   .green {
@@ -348,13 +329,11 @@ li {
     border: 1px solid var(--secondary);
   }
 
-
   button {
     border-radius: 50px;
     border: 1px solid var(--background-light);
     cursor: pointer;
     padding: 4px 8px;
-
   }
 
   .filter .green>button {
@@ -372,19 +351,17 @@ li {
   .sort {
     justify-content: start;
     width: 35vh;
-
   }
 
   .filter {
     justify-content: start;
     width: 35vw;
-
   }
 
   .filtersort-larger {
     display: flex;
     flex-direction: row;
-    justify-content: center
+    justify-content: center;
   }
 
   .search-container {
@@ -412,7 +389,6 @@ li {
     box-shadow: 0px 0px 30px var(--shadow-light);
     padding: 0;
     margin: 0;
-
   }
 
   .right-side {
@@ -423,7 +399,6 @@ li {
     align-content: center;
     padding: 32px 0px;
   }
-
 
   #randomRecipeButton {
     font: 14px arial, sans-serif;
@@ -447,7 +422,6 @@ li {
     align-self: center;
   }
 
-
   .recipe-card {
     width: 300px;
     border: 2px solid var(--background-light);
@@ -462,9 +436,9 @@ li {
   }
 }
 
-
 .footer-left,
 .footer-right {
   gap: 32px;
-  font: px "futura", sans-serif var(--text-light);
+  font: 16px "futura", sans-serif;
+  color: var(--text-light);
 }
