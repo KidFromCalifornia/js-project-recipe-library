@@ -53,6 +53,7 @@ h5 {
 i {
   color: var(--text-light);
   cursor: pointer;
+  padding: 0 .25rem;
 }
 
 ul {
@@ -210,10 +211,10 @@ ul {
   background-color: #ffffff;
   border: 2px solid var(--border-dark);
   box-shadow: 0px 0px 30px var(--shadow-light);
-  border-radius: 16px;
-  width: 320px;
+  border-radius: 1rem;
+  width: 20rem;
   height: 100%;
-  padding: 16px 16px 24px 16px;
+  padding: 1rem 1rem 1.5rem 1rem;
   z-index: 1;
   box-sizing: border-box;
   text-align: start;
@@ -296,10 +297,7 @@ li {
     display: none;
   }
 
-  .filtersort-larger {
-    padding-left: 48px;
-    padding-right: 48px;
-  }
+
 
   h1 {
     text-align: left;
@@ -307,7 +305,7 @@ li {
   }
 
   button:hover {
-    border: 1px solid var(--border-dark);
+    border: 2px solid var(--border-dark);
     box-shadow: 0px 0px 30px var(--shadow-light);
   }
 
@@ -320,32 +318,32 @@ li {
   .filter .green>button:focus {
     color: var(--text-light);
     background-color: var(--primary);
-    border: 1px solid var(--primary);
+    border: 2px solid var(--primary);
   }
 
   .sort .selectors>button:focus {
     color: var(--select-light);
     background-color: var(--secondary);
-    border: 1px solid var(--secondary);
+    border: 2px solid var(--secondary);
   }
 
   button {
     border-radius: 50px;
     border: 1px solid var(--background-light);
     cursor: pointer;
-    padding: 4px 8px;
+    padding: .5rem;
   }
 
   .filter .green>button {
     background-color: var(--select-dark);
     color: var(--primary);
-    margin: 4px;
+    margin: .25rem;
   }
 
   .sort .selectors>button {
     background-color: var(--select-light);
     color: var(--primary);
-    margin: 4px;
+    margin: .25rem;
   }
 
   .sort {
@@ -361,21 +359,22 @@ li {
   .filtersort-larger {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 0 3rem;
   }
 
   .search-container {
     display: flex;
     background-color: var(--background-light);
     border: none;
-    height: 66px;
+    height: auto;
     width: auto;
   }
 
   .search-input:hover {
     border: 2px solid var(--border-dark);
     border-radius: 50px;
-    height: 32px;
+    height: 2rem;
   }
 
   .search-input {
@@ -384,8 +383,8 @@ li {
     border-radius: 50px;
     outline: none;
     text-indent: 8px;
-    font: 16px "futura", sans-serif;
-    height: 32px;
+    font: 1rem "futura", sans-serif;
+    height: 2rem;
     box-shadow: 0px 0px 30px var(--shadow-light);
     padding: 0;
     margin: 0;
@@ -397,28 +396,28 @@ li {
     align-items: center;
     justify-content: space-evenly;
     align-content: center;
-    padding: 32px 0px;
+    padding: 2rem 0px;
   }
 
   #randomRecipeButton {
-    font: 14px arial, sans-serif;
+    font: 1rem arial, sans-serif;
     width: 35vh;
     border-radius: 50px;
     border: 1px solid var(--primary);
-    padding: 4px 8px;
-    max-height: 32px;
+    padding: .5rem;
+    max-height: 2rem;
     box-shadow: 0px 0px 30px var(--shadow-light);
     background-color: var(--primary);
     color: var(--text-light);
     cursor: pointer;
-    height: 32px;
+    height: 2rem;
   }
 
   .recipe-container {
     align-content: start;
     justify-content: space-evenly;
-    gap: 16px;
-    padding: 16px;
+    gap: 1rem;
+    padding: 1rem;
     align-self: center;
   }
 
@@ -432,13 +431,13 @@ li {
   .recipe-card:hover {
     border: 2px solid var(--border-dark);
     box-shadow: 0px 0px 30px var(--shadow-light);
-    border-radius: 16px;
+    border-radius: 1rem;
   }
-}
 
-.footer-left,
-.footer-right {
-  gap: 32px;
-  font: 16px "futura", sans-serif;
-  color: var(--text-light);
+  .footer-left,
+  .footer-right {
+    gap: 2rem;
+    font: 2rem "futura", sans-serif;
+    color: var(--text-light);
+  }
 }

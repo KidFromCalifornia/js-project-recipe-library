@@ -6,12 +6,13 @@ const fixedCuisines = [
   "Middle Eastern", "Nordic", "Southern", "Spanish", "Thai", "Vietnamese"
 ];
 
-const URL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=10&cuisine=${fixedCuisines.join(',')}&fillIngredients=true&addRecipeInformation=true&sort=random`;
+const URL = `${BASE_URL}complexSearch?apiKey=${API_KEY}&number=10&cuisine=${fixedCuisines.join(',')}&fillIngredients=true&addRecipeInformation=true&sort=random`;
 
 const recipeContainer = document.getElementById("recipe-container");
 const filterDropdown = document.getElementById("filterDropdown");
 const buttonContainer = document.getElementById("filterButtonsContainer");
 const missingRecipe = document.getElementById("missingRecipe");
+const dropdowns = document.querySelectorAll(".dropdown");
 
 // Function to select a random recipe
 const getRandomRecipe = (recipes) => {
@@ -20,26 +21,33 @@ const getRandomRecipe = (recipes) => {
 };
 
 // Fetch recipes
-fetch(URL)
-  .then(response => {
-    if (!response.ok) throw new Error("Network response was not ok");
-    return response.json();
-  })
-  .then(data => {
-    const recipes = data.results;
-    localStorage.setItem("recipes", JSON.stringify(recipes));
-    initializePage(recipes);
-  })
-  .catch(error => {
-    alert("OH NO! There is an issue with retrieving new recipes,\nplease try again tomorrow or continue with previous retrieved recipes.\n\n  " + error);
-    const storedRecipes = localStorage.getItem("recipes");
-    if (storedRecipes) {
-      const recipes = JSON.parse(storedRecipes);
+const receiveRecipeData = () => {
+  fetch(URL)
+    .then(response => {
+      if (!response.ok) throw new Error("Network response was not ok");
+      return response.json();
+    })
+    .then(data => {
+      const recipes = data.results;
+      localStorage.setItem("recipes", JSON.stringify(recipes));
       initializePage(recipes);
-    }
-  });
+    })
+    .catch(error => {
+      alert("OH NO! There is an issue with retrieving new recipes,\nplease try again tomorrow or continue with previous retrieved recipes.\n\n " + error);
 
-function initializePage(recipes) {
+      const storedRecipes = localStorage.getItem("recipes");
+      if (storedRecipes) {
+        const recipes = JSON.parse(storedRecipes);
+        initializePage(recipes);
+      }
+
+    });
+
+}
+receiveRecipeData()
+
+
+const initializePage = (recipes) => {
   generateDropdown(filterDropdown, recipes, "filter");
   generateButtons(buttonContainer, recipes, "filter");
   generateDropdown(document.getElementById("sortDropdown"), recipes, "sort");
@@ -54,6 +62,7 @@ function initializePage(recipes) {
       recipeCards([randomRecipe]);
     });
   });
+
   recipeCards(recipes);
 }
 
@@ -70,13 +79,29 @@ const getUniqueFilter = (recipes) => {
 const generateButtons = (container, recipes, type) => {
   if (!container) return;
 
-  const items = type === "filter" ? getUniqueFilter(recipes) : ["servings", "Popularity", "time"];
+  const items = type === "filter" ? getUniqueFilter(recipes) : ["Servings", "Popularity", "Time"];
+
   const buttonClass = type === "filter" ? "filter-button" : "sort-button";
-  const buttonText = type === "filter" ? "All Cuisines" : "Sort by";
+
+  const buttonText = type === "filter" ? "All Cuisines" : "Reset";
 
   container.innerHTML = `
-    <button value="all" class="${buttonClass}">${buttonText}</button>
-    ${items.map(item => `<button value="${item}" class="${buttonClass}">${item}</button>`).join("")}
+ <button aria-label="${type === "filter" ? "Show all cuisines" : "Reset sorting"}" value="all" class="${buttonClass}">
+      ${buttonText}
+    </button>
+
+ ${items
+      .map(
+        (item) => `
+        <button 
+          aria-label="${type === "filter" ? `Filter by ${item}` : `Sort by ${item}`}" 
+          value="${item}" 
+          class="${buttonClass}"
+        >
+          ${item}
+        </button>
+
+`).join("")}
   `;
 
   document.querySelectorAll(`.${buttonClass}`).forEach(button => {
@@ -88,9 +113,9 @@ const generateButtons = (container, recipes, type) => {
 const generateDropdown = (container, recipes, type) => {
   if (!container) return;
 
-  const items = type === "filter" ? getUniqueFilter(recipes) : ["servings", "Popularity", "time"];
+  const items = type === "filter" ? getUniqueFilter(recipes) : ["Servings", "Popularity", "Time"];
   const buttonClass = type === "filter" ? "filter-button" : "sort-button";
-  const buttonText = type === "filter" ? "All" : "Sort by";
+  const buttonText = type === "filter" ? "All" : "Reset";
 
   container.innerHTML = `
     <li><button value="all" class="${buttonClass}">${buttonText}</button></li>
@@ -158,19 +183,17 @@ const sortRecipes = (event, recipes) => {
 
   let sortedRecipes = [...recipes];
 
-  if (sortValue === "servings") {
+  if (sortValue === "Servings") {
     sortedRecipes.sort((a, b) => (a.servings || 0) - (b.servings || 0));
   } else if (sortValue === "Popularity") {
     sortedRecipes.sort((a, b) => (b.aggregateLikes || 0) - (a.aggregateLikes || 0));
-  } else if (sortValue === "time") {
+  } else if (sortValue === "Time") {
     sortedRecipes.sort((a, b) => (a.readyInMinutes || 0) - (b.readyInMinutes || 0));
   }
 
   recipeCards(sortedRecipes);
 };
 
-// Handle dropdown clicks
-const dropdowns = document.querySelectorAll(".dropdown");
 
 document.addEventListener("click", (event) => {
   dropdowns.forEach(dropdown => {
@@ -189,7 +212,7 @@ document.addEventListener("click", (event) => {
 });
 
 // search function
-function searchFunction(recipes) {
+const searchFunction = (recipes) => {
   if (!recipes) {
     return;
   }

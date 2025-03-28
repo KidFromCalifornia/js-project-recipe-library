@@ -19,23 +19,23 @@
 <body>
   <header>
     <h1>Recipe Library</h1>
-  </header>
-  <main>
     <nav class="filtersort-larger"
          id="filterSort">
       <div class="flex filter">
-        <h4>Filter by Cuisine</h4>
+        <h2>Filter by Cuisine</h2>
         <form class="selectors green"
               id="filterButtonsContainer"
               aria-label="Filter by Cuisine"></form>
       </div>
       <div class="flex sort">
-        <h4>Sort by</h4>
+        <h2>Sort by</h2>
         <form id="sortButtons"
               class="selectors pink"
               aria-label="Sort by options"></form>
       </div>
       <div class="right-side">
+        <label for="search-mobile"
+               hidden> Search for cuisines, diets and ingredients </label>
         <div class="search-container">
           <input type="text"
                  class="search-input"
@@ -43,7 +43,8 @@
                  placeholder=" &#x2315;  What sounds good?"
                  aria-label="Search Recipes" />
         </div>
-        <button id="randomRecipeButton"
+        <button type="button"
+                id="randomRecipeButton"
                 class="random lrg"
                 aria-label="Get a random recipe"> I don't Know! </button>
       </div>
@@ -69,7 +70,8 @@
             aria-label="Sort options"></ul>
       </div>
       <div class="search-mobile">
-        <label for="search-mobile"></label>
+        <label for="search-mobile"
+               hidden> Search for cuisines, diets and ingredients </label>
         <input type="text"
                class="search-input"
                id="searchMobile"
@@ -80,6 +82,8 @@
               class="random mobile"
               aria-label="Get a random recipe"> I don't Know! </button>
     </nav>
+  </header>
+  <main>
     <section id="recipe-container"
              class="recipe-container"
              aria-live="polite"
@@ -95,7 +99,6 @@
           <a href="https://github.com/KidFromCalifornia"
              target="_blank"
              class="Github"
-             alt="Link to Github"
              aria-label="Link to Github">
             <i class="fa-brands fa-github"></i>
           </a>
@@ -104,7 +107,6 @@
           <a href="https://www.linkedin.com/in/jonathanwhicks/"
              target="_blank"
              class="linkedin"
-             alt="Link to LinkedIn"
              aria-label="Link to LinkedIn">
             <i class="fa-brands fa-linkedin"></i>
           </a>
@@ -113,7 +115,6 @@
           <a href="https://www.instagram.com/thekidfromcalifornia"
              target="_blank"
              class="instagram"
-             alt="Link to Instagram"
              aria-label="Link to Instagram">
             <i class="fa-brands fa-instagram"></i>
           </a>
