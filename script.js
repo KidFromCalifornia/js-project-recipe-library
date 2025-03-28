@@ -53,17 +53,17 @@ const initializePage = (recipes) => {
   generateDropdown(document.getElementById("sortDropdown"), recipes, "sort");
   generateButtons(document.getElementById("sortButtons"), recipes, "sort");
   document.querySelectorAll("#search, #searchMobile").forEach(input => {
-    input.addEventListener("input", () => searchFunction(recipes));
+    input.addEventListener("input", () => FindRecipe(recipes));
   });
   document.querySelectorAll("#randomRecipeButton, #randomMobile").forEach(button => {
     button.addEventListener("click", () => {
       console.log("Random recipe button clicked");
       const randomRecipe = getRandomRecipe(recipes);
-      recipeCards([randomRecipe]);
+      fillRecipeCards([randomRecipe]);
     });
   });
 
-  recipeCards(recipes);
+  fillRecipeCards(recipes);
 }
 
 // Get unique filter values
@@ -105,7 +105,7 @@ const generateButtons = (container, recipes, type) => {
   `;
 
   document.querySelectorAll(`.${buttonClass}`).forEach(button => {
-    button.addEventListener("click", (event) => type === "filter" ? filterSelect(event, recipes) : sortRecipes(event, recipes));
+    button.addEventListener("click", (event) => type === "filter" ? filterRecipe(event, recipes) : sortRecipes(event, recipes));
   });
 };
 
@@ -123,12 +123,12 @@ const generateDropdown = (container, recipes, type) => {
   `;
 
   document.querySelectorAll(`.${buttonClass}`).forEach(option => {
-    option.addEventListener("click", (event) => type === "filter" ? filterSelect(event, recipes) : sortRecipes(event, recipes));
+    option.addEventListener("click", (event) => type === "filter" ? filterRecipe(event, recipes) : sortRecipes(event, recipes));
   });
 };
 
 // Render recipe cards
-const recipeCards = (recipes) => {
+const fillRecipeCards = (recipes) => {
   if (!recipeContainer) return;
 
   recipeContainer.innerHTML = "";
@@ -141,10 +141,10 @@ const recipeCards = (recipes) => {
     const cleanDietsText = (recipe.diets || []).map(diet => diet.charAt(0).toUpperCase() + diet.slice(1)).join(", ");
     const cleancuisinesText = (recipe.cuisines || []).map(cuisine => cuisine.charAt(0).toUpperCase() + cuisine.slice(1)).join(", ");
 
-    const recipeCard = document.createElement("div");
-    recipeCard.classList.add("recipe-card");
+    const makeRecipeCard = document.createElement("div");
+    makeRecipeCard.classList.add("recipe-card");
 
-    recipeCard.innerHTML = `
+    makeRecipeCard.innerHTML = `
       <img src="${recipe.image}" alt="${recipe.title}">
       <h3>${recipe.title}</h3>
       <span></span>
@@ -159,20 +159,20 @@ const recipeCards = (recipes) => {
       <a href="${recipe.sourceUrl}" target="_blank">Get Recipe</a>
     `;
 
-    recipeContainer.appendChild(recipeCard);
+    recipeContainer.appendChild(makeRecipeCard);
   });
 };
 
 // Filter function for cuisine
-const filterSelect = (event, recipes) => {
+const filterRecipe = (event, recipes) => {
   event.preventDefault();
   const filterValue = event.target.value;
 
   if (filterValue === "all") {
-    recipeCards(recipes);
+    fillRecipeCards(recipes);
   } else {
     const filteredRecipes = recipes.filter(recipe => recipe.cuisines.includes(filterValue));
-    recipeCards(filteredRecipes);
+    fillRecipeCards(filteredRecipes);
   }
 };
 
@@ -191,7 +191,7 @@ const sortRecipes = (event, recipes) => {
     sortedRecipes.sort((a, b) => (a.readyInMinutes || 0) - (b.readyInMinutes || 0));
   }
 
-  recipeCards(sortedRecipes);
+  fillRecipeCards(sortedRecipes);
 };
 
 
@@ -212,7 +212,7 @@ document.addEventListener("click", (event) => {
 });
 
 // search function
-const searchFunction = (recipes) => {
+const FindRecipe = (recipes) => {
   if (!recipes) {
     return;
   }
@@ -225,10 +225,10 @@ const searchFunction = (recipes) => {
   );
 
   if (query === "") {
-    recipeCards(recipes);
+    fillRecipeCards(recipes);
   } else if (filteredRecipes.length === 0) {
     recipeContainer.innerHTML = `<p>No matching recipes found, what else sounds good?</p>`;
   } else {
-    recipeCards(filteredRecipes);
+    fillRecipeCards(filteredRecipes);
   }
 }
